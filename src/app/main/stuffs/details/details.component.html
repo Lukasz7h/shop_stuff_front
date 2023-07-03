@@ -1,0 +1,39 @@
+<div class="bg">
+</div>
+
+<div id="describe" *ngIf="stuff">
+    <p id="name">{{stuff.name}}</p>
+    <p>{{stuff.price}}zł</p>
+
+    <img src="data:image/jpeg;base64, {{stuff.file.buffer}}">
+    
+    <div id="container">
+        <p>Na 100{{stuff.values.unit.value}}</p>
+        <p>kcal: {{stuff.values.kcal.value}}</p>
+        <p>białko: {{stuff.values.protein.value}}g</p>
+        <p>tłuszcz: {{stuff.values.fat.value}}g</p>
+        <p>węglowodany: {{stuff.values.carb.value}}g</p>
+        <p *ngIf="stuff.values.fiber.value">błonnik: {{stuff.values.fiber.value}}g</p>
+    </div>
+</div>
+
+<div id="compare">
+    <select (change)="changePeriod($event)">
+        <option value="month">Miesiąc</option>
+        <option value="year">Rok</option>
+    </select>
+
+    <span> Porównaj ceny z innymi sklepami </span><button (click)="comparePriceWithAnotherStores('Month')">W skali miesiąca</button> <button (click)="comparePriceWithAnotherStores('Year')">W skali roku</button>
+</div> 
+
+<div *ngIf="lineChartData" style="display: block; position: relative;">
+
+    <div id="left"><mat-icon (click)="action('back')">chevron_left</mat-icon></div> 
+    <div id="right"><mat-icon (click)="action('next')">chevron_right</mat-icon></div> 
+
+    <canvas ngChartjs
+        [datasets]="lineChartData" [labels]="lineChartLabels"
+        [options]="lineChartOptions" [legend]="lineChartLegend"
+        [chartType]="lineChartType">
+    </canvas>
+</div>

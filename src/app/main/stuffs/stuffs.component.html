@@ -1,0 +1,71 @@
+<div class="bg">
+</div>
+
+<p *ngIf="stuffService.stuffs && stuffService.stuffs.length > 0" id="sort">Według ceny: &nbsp;<span (click)="sort('ascending')">Rosnąco</span> &nbsp;&nbsp; <span (click)="sort('descending')">Malejąco</span></p>
+<app-basket [newStuff]="addThat" (emiter)="newBasket($event)"></app-basket>
+
+<div #filterElement id="filter" (input)="stuffService.filter($event)">
+    <div>
+        <span>
+            <input name="name" type="text">
+        </span>
+        
+        <span>
+            <input name="price" type="number">
+        </span>
+        <span>
+            <input name="protein" type="number">
+        </span>
+        
+        <span>
+            <input name="carb" type="number">
+        </span>
+        <span>
+            <input name="fat" type="number">
+        </span>
+        
+        <span>
+            <input name="fiber" type="number">
+        </span>
+        <span>
+            <input name="kcal" type="number">
+        </span>
+
+        <button  style="cursor: none;" (click)="clean(filterElement)">Wyczyść</button>
+    </div>
+</div>
+
+<div id="content">
+    <div class="stuff" *ngFor="let e of stuffService.stuffs; let i=index;">
+        <div class="container" [routerLink]="['/stuffs/detail', e._id]">
+    
+            <span class="store"><img #logo [src]="getLogo(e.store, i)"></span>
+
+            <p *ngIf="e.name">nazwa: {{e.name}}</p>
+            <p *ngIf="e.name">cena: {{e.price}}</p>
+            
+            <div class="values"> 
+                <span>białko: {{e.values.protein.value}}</span>
+                <span>węglowodany: {{e.values.carb.value}}</span>
+                <span>tłuszcz: {{e.values.fat.value}}</span>
+                <span *ngIf="e.values.fiber.value">błonnik: {{e.values.fiber.value}} </span>
+                <span>kcal: {{e.values.kcal.value}}</span>
+            </div>
+        </div>
+        
+        <button class="btn" *ngIf="purchase" (click)="addStuff(e)"><mat-icon>add</mat-icon></button>
+    </div>
+</div>
+
+<div id="list">
+    <button id="purchase" role="button" (click)="purchaseMode()"><span class="text">Lista zakupów</span></button>
+
+    <div #inside>
+        <span>Sklep: &nbsp;</span>
+        <select [disabled]="!purchase" name="store" (change)="actionStore($event)">
+            <option *ngFor="let e of storeList" value="{{e}}">{{e}}</option>
+        </select>
+    </div>
+
+    <p *ngFor="let e of basketLinks"><a href="{{e}}">Link</a> <button (click)="copy(e)"><mat-icon>library_books</mat-icon></button> <button style="cursor: none;" (click)="deleteLink(e)"><mat-icon>close</mat-icon></button></p>
+</div>

@@ -1,0 +1,374 @@
+$form_width: 350px;
+$lines: -24px 590px 360px -23deg, 288px 622px 360px 35deg, 609px 763px 323px 14deg, 844px 630px 452px -50deg, 1173px 572px 374px 38deg, 1491px 618px 337px -24deg, 1780px 658px 398px 33deg, 2085px 620px 427px -44deg,2271px 208px 573px -68deg;
+
+$lines_gredient: #7832ab #7329b6, #7329b6 #9026d9, #9026d9 #a41cdb, #a41cdb #b546df, #b546df #cd39de, #cd39de #d14cb6, #d14cb6 #d2439c, #d2439c #e95a94, #e95a94 #e95a94;
+$draw_delay: .4s, 0s, 1s, .45s, .9s, .84s, .06s, .7s, .9s;  
+
+#chart_line{
+    overflow: hidden;
+    width: 100vw;
+    position: relative;
+    height: 100vh;
+
+    #dot{
+        position: absolute;
+        top: 590px;
+        left: -24px;
+        background: #9b3cdbcc;
+        border-radius: 50%;
+        width: 16px;
+        height: 16px;
+        z-index: 1;
+
+        animation: dot_move 4.4s linear 2s forwards;
+
+        &::after{
+            content: "";
+            position: absolute;
+            top: 50%;
+
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #bb91e3;
+
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+
+            z-index: 0;
+            animation: flashing .2s ease-in infinite;
+        }
+    }
+
+    .line{
+        background-color: #56cee4;
+        position: absolute;
+        height: 4px;
+        z-index: 4;
+
+        @for $i from 1 through 9{
+            &-#{$i}{
+                $element: nth($lines, $i);
+                $rgb_element: nth($lines_gredient, $i);
+                background: linear-gradient(90deg, nth($rgb_element, 1) 0%, nth($rgb_element, 2) 100%);
+
+                transform: rotate(nth($element, 4));
+                width: nth($element, 3);
+
+                top: nth($element, 2);
+                left: nth($element, 1);
+
+                position: absolute;
+                animation: lines_shadow .8s ease-out calc((($i * .45) + 2.8) * 1s) forwards;
+
+                &::after{
+                    content: "";
+                    position: absolute;
+                    top: -1px;
+                    left: 0px;
+                    bottom: 0;
+                    right: 0;
+                    
+                    background: white;
+                    padding: 3px;
+                    animation: draw_lines 1.4s ease-in nth($draw_delay, $i) forwards;
+                }
+            }
+        }
+
+       
+    }
+}
+
+#container{
+    position: absolute;
+    top: 51%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 800px;
+    width: $form_width;
+    z-index: 5;
+}
+
+header{
+    #line{
+        background: linear-gradient(90deg, rgb(228, 58, 199) 0%, rgb(135, 48, 218) 100%);
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+    }
+
+    h3{
+        line-height: 105px;
+    }
+
+    background: #fdfdfd;
+    position: absolute;
+    top: 0px;
+
+    width: $form_width;
+    color: rgb(116, 116, 116);
+    text-align: center;
+    border-radius: 6px;
+
+    height: 105px;
+    box-shadow: 3px 4px 24px -12px rgba(66, 68, 90, 1);
+    overflow: hidden;
+    font-family: 'Raleway', sans-serif;
+}
+
+form{
+    position: absolute;
+    top: 155px;
+    background: #fdfdfd;
+
+    display: flex;
+    flex-direction: column;
+    width: $form_width;
+
+    padding: 20px 35px;
+
+    border-radius: 8px;
+    box-shadow: 3px 4px 24px -12px rgba(66, 68, 90, 1);
+
+    label{
+        font-family: 'Raleway', sans-serif;
+    }
+
+    input, select, ngx-dropzone{
+        margin-bottom: 15px;
+    }
+
+    input[type='text']{
+        width: 100%;
+    }
+
+    input[type='number']{
+        width: 30%;
+    }
+
+    ngx-dropzone{
+        cursor: none;
+
+        mat-icon{
+            width: 60px;
+            height: 60px;
+            font-size: 65px;
+        }
+    }
+
+    input[type='file']{
+        background: transparent;
+        border-radius: 4px;
+    }
+
+    select{
+        width: 100%;
+        background: transparent;
+        border: 1px solid rgb(109, 109, 109);
+        border-radius: 4px;
+        cursor: none;
+    }
+
+    button{
+        margin: 10px auto;
+        width: 27%;
+        height: 34px;
+        font-family: 'Raleway', sans-serif;
+        background: white;
+        border: none;
+        position: relative;
+
+        &:hover{
+            font-weight: 600;
+        }
+        
+        ::before{
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-top: 1px solid rgb(171, 105, 224);
+            border-left: 1px solid rgb(171, 105, 224);
+            width: 5px;
+            height: 5px;
+        }
+
+        ::after{
+            content: "";
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            border-bottom: 1px solid rgb(171, 105, 224);
+            border-right: 1px solid rgb(171, 105, 224);
+            width: 5px;
+            height: 5px;
+        }
+      }
+}
+
+.block{
+    width: 65px;
+        
+    position: absolute;
+    bottom: 0;
+
+    height: 100%;
+    transform: translate(-50%, 0);
+    @for $i from 1 through 55{
+        
+
+        &-#{$i}{
+            
+            left: calc(($i - 1) * 60px);
+            background-color: #ffffff;
+            animation: shutter .6s ease-out calc((($i * .1) + 2.5) * 1s) forwards;
+        }
+    }
+}
+
+.bg{
+    clip-path: polygon(0% 61.9%, 12.37% 53.5%, 23.58% 66%, 35.64% 70.9%, 46.7% 49.8%, 57.9% 63.8%, 69.7% 55.48%, 82.6% 68.74%, 94.28% 50.78%, 100% 28.3%, 100% 100%, 0% 100%);
+    background: linear-gradient(90deg, rgba(120,50,171,1) 0%, rgba(115,41,182,1) 12%, rgba(144,38,217,1) 27%, rgba(164,28,219,1) 40%, rgba(181,70,223,1) 51%, rgba(205,57,222,1) 57%, rgba(209,76,182,1) 65%, rgba(210,67,156,1) 75%, rgba(233,90,148,1) 88%, rgba(233,90,148,1) 100%);
+    width: 2600px;
+    height: 1628px;
+    position: absolute;
+    top: -349px;
+    z-index: 4;
+}
+
+
+@keyframes draw_lines
+{
+    0%{
+        left: 0;
+    }
+
+    99%{
+        left: 100%;
+        opacity: 1;
+    }
+
+    100%{
+        left: 100%;
+        opacity: 0;
+    }
+}
+
+@keyframes lines_shadow {
+    0%{
+        box-shadow: -3px -6px 40px 15px rgba(160, 160, 160, 0);
+    }
+
+    100%{
+        box-shadow: -3px -6px 40px 15px rgb(160, 160, 160);
+    }
+}
+
+@keyframes flashing {
+    0%{
+        padding: 6px;
+        opacity: 1;
+    }
+
+    100%{
+        padding: 16px;
+        opacity: 0;
+    }
+}
+
+@keyframes dot_move {
+    0%{
+        left: -26px;
+        top: 656px;
+        display: block;
+    }
+
+    11%{
+        left: 313px;
+        top: 515px;
+        display: block;
+    }
+
+    22%{
+        left: 607px;
+        top: 718px;
+        display: block;
+    }
+
+    33%{
+        left: 917px;
+        top: 795px;
+        display: block;
+    }
+
+    44%{
+        left: 1206px;
+        top: 451px;
+        display: block;
+    }
+
+    55%{
+        left: 1499px;
+        top: 680px;
+        display: block;
+    }
+
+    66%{
+        left: 1805px;
+        top: 545px;
+        display: block;
+    }
+
+    77%{
+        left: 2139px;
+        top: 759px;
+        display: block;
+    }
+
+    88%{
+        left: 2443px;
+        top: 466px;
+        display: block;
+    }
+
+    100%{
+        left: 2641px;
+        top: -23px;
+        display: block;
+    }
+}
+
+@keyframes shutter{
+    0%{
+        transform: rotateY(0deg);
+    }
+
+    100%{
+        transform: rotateY(90deg);
+    }
+}
+
+#some{
+    position: absolute;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    min-height: 1000px;
+}
+
+@media (max-width: 460px)
+{
+    #container{
+        top: 60%;
+    }
+
+    #some{
+        height: 135vh;
+        width: 100%;
+    }
+}
+

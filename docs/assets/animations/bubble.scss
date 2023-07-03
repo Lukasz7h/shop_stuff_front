@@ -1,0 +1,67 @@
+$dot_distance: 2%, 4%, 7.5%, 11%, 12.7%, 15.5%, 19%, 22%, 24%, 27%, 31.3%, 34.6%, 38%, 42%, 46.7%, 51%, 52.8%, 54.3%, 57%, 59%, 63.6%, 67%, 71.5%, 75%, 78.7%, 82%, 85.5%, 88.8%, 91%, 92.7%, 94%, 98%;
+
+$dot_color: rgb(197, 241, 217),rgb(185, 221, 231);
+$dot_shadow: rgb(213, 240, 225), rgb(216, 232, 236);
+
+$dot_size: 8px, 14px, 19px;
+$dot_delay: 3s, 2.5s, 9.8s, 4.7s, 6.9s, 2.4s, 7s, 10.8s, 4.2s, 6.8s, 7.5s, 11.1s, 3.2s, 5.9s, 2.8s, 7.8s, 3s, 9.2s, 3.9s, 5.8s, 10.5s, 8s, 4.5s, 10s, 7.7s, 3.2s, 11s, 4.7s, 8s, 2.6s, 3.4s, 2.6s;
+
+#background_animation{
+    position: absolute;
+    z-index: -1;
+  
+    top: 0;
+    left: 0;
+  
+    bottom: 0;
+    right: 0;
+  
+    span{
+      position: absolute;
+      z-index: -1;
+  
+      bottom: -20px;
+      width: 10px;
+  
+      height: 10px;
+      border-radius: 50%;
+  
+      width: nth($dot_size, 1);
+      height: nth($dot_size, 1);
+  
+      background-color: nth($dot_color, 1);
+      box-shadow: 0px 0px 2px 3px nth($dot_shadow, 1);
+  
+      @for $i from 1 through 32
+      {
+        &:nth-of-type(#{$i})
+        {
+          left: nth($dot_distance, $i);
+          animation: move 12.3s ease-in nth($dot_delay, $i) infinite;
+        }
+      }
+  
+      &:nth-of-type(even)
+      {
+        background-color: nth($dot_color, 2);
+        box-shadow: 0px 0px 2px 3px nth($dot_shadow, 2);
+      }
+    }
+  }
+  
+  @keyframes move{
+    0%{
+      bottom: -10px;
+    }
+  
+    50%{
+      width: nth($dot_size, 2);
+      height: nth($dot_size, 2);
+    }
+  
+    100%{
+      bottom: 110%;
+      width: nth($dot_size, 3);
+      height: nth($dot_size, 3);
+    }
+  }

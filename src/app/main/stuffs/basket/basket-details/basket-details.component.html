@@ -1,0 +1,23 @@
+<div class="bg"></div>
+
+<div>
+    <mat-icon> list_alt</mat-icon>
+
+    <p id="store" *ngIf="sameShop">Sklep - {{shop}}</p>
+    <div *ngFor="let e of basket" [routerLink]="['/stuffs/detail', e.stuff._id]">
+        <p>Produkt: {{e.stuff.name}} <span *ngIf="!sameShop"> - sklep: {{e.stuff.store}}</span></p>
+        <p>Ilość: {{e.amount}}</p>
+        <p>Cena: {{e.stuff.price}}zł</p>
+    </div>
+
+    <p id="price">Cena zakupów: {{totalPrice}}zł</p>
+</div>
+
+
+<div>
+    <mat-icon>gps_fixed</mat-icon>
+    <div id="map">
+    </div>
+</div>
+
+<canvas id="canvas"></canvas>

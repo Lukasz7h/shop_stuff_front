@@ -1,0 +1,112 @@
+<div id="chart_line">
+    <span id="dot"></span>
+    <p class="line line-1"></p>
+    <p class="line line-2"></p>
+    <p class="line line-3"></p>
+    <p class="line line-4"></p>
+    <p class="line line-5"></p>
+    <p class="line line-6"></p>
+    <p class="line line-7"></p>
+    <p class="line line-8"></p>
+    <p class="line line-9"></p>
+</div>
+
+<div id="container">
+    <header>
+        <span id="line"></span>
+        <h3>Dodaj produkt</h3>
+    </header>
+    
+    <form #formStuff="ngForm" (ngSubmit)="send(formStuff)">
+    
+    
+        <label>Nazwa:</label>
+        <input type="text" name="name" ngModel>
+    
+        <label>Cena:</label>
+        <input type="number" name="price" ngModel>
+    
+        <label>Zdjęcie produktu:</label>
+        <ngx-dropzone [multiple]="false" (change)="onSelect($event, 1)">
+            <ngx-dropzone-label><mat-icon>add_photo_alternate</mat-icon></ngx-dropzone-label>
+            <ngx-dropzone-preview *ngFor="let f of filesStuff" [removable]="true" (removed)="onRemove(f, 1)">
+                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+            </ngx-dropzone-preview>
+        </ngx-dropzone>
+    
+        <label>Zdjęcie wartości odżywczych:</label>
+        <ngx-dropzone [multiple]="false" (change)="onSelect($event, 2)">
+            <ngx-dropzone-label><mat-icon>add_photo_alternate</mat-icon></ngx-dropzone-label>
+            <ngx-dropzone-preview *ngFor="let f of filesOfNutrition" [removable]="true" (removed)="onRemove(f, 2)">
+                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+            </ngx-dropzone-preview>
+        </ngx-dropzone>
+    
+        <label>Nazwa sklepu:</label>
+        <select ngModel name="store">
+            <option *ngFor="let e of stores" value="{{e}}">{{e}}</option>
+        </select>
+    
+        <button style="cursor: none;" type="submit">Wyślij <span></span></button>
+    </form>
+</div>
+
+<div id="some">
+    <div class="bg">
+        <div class="block block-1"></div>
+        <div class="block block-2"></div>
+        <div class="block block-3"></div>
+        <div class="block block-4"></div>
+        <div class="block block-5"></div>
+        <div class="block block-6"></div>
+        <div class="block block-7"></div>
+        <div class="block block-8"></div>
+        <div class="block block-9"></div>
+        <div class="block block-10"></div>
+        <div class="block block-11"></div>
+        <div class="block block-12"></div>
+        <div class="block block-13"></div>
+        <div class="block block-14"></div>
+        <div class="block block-15"></div>
+        <div class="block block-16"></div>
+        <div class="block block-17"></div>
+        <div class="block block-18"></div>
+        <div class="block block-19"></div>
+        <div class="block block-20"></div>
+        <div class="block block-21"></div>
+        <div class="block block-22"></div>
+        <div class="block block-23"></div>
+        <div class="block block-24"></div>
+        <div class="block block-25"></div>
+        <div class="block block-26"></div>
+        <div class="block block-27"></div>
+        <div class="block block-28"></div>
+        <div class="block block-29"></div>
+        <div class="block block-30"></div>
+        <div class="block block-31"></div>
+        <div class="block block-32"></div>
+        <div class="block block-33"></div>
+        <div class="block block-34"></div>
+        <div class="block block-35"></div>
+        <div class="block block-36"></div>
+        <div class="block block-37"></div>
+        <div class="block block-38"></div>
+        <div class="block block-39"></div>
+        <div class="block block-40"></div>
+        <div class="block block-41"></div>
+        <div class="block block-42"></div>
+        <div class="block block-43"></div>
+        <div class="block block-44"></div>
+        <div class="block block-45"></div>
+        <div class="block block-46"></div>
+        <div class="block block-47"></div>
+        <div class="block block-48"></div>
+        <div class="block block-49"></div>
+        <div class="block block-50"></div>
+        <div class="block block-51"></div>
+        <div class="block block-52"></div>
+        <div class="block block-53"></div>
+        <div class="block block-54"></div>
+        <div class="block block-55"></div>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+#background_animation{
+    overflow: hidden;
+}
+
+.reset_pass{
+
+    text-align: start;
+    margin: 150px 70px;
+
+    p{
+        color: rgb(92, 92, 92);
+        width: 68%;
+        letter-spacing: 2px;
+        text-align: end;
+    }
+    
+    mat-icon{
+        width: 30px;
+        height: 30px;
+        font-size: 30px;
+        line-height: 25px;
+    }
+
+    input{
+        border-radius: 7px;
+    }
+
+    .send{
+        overflow: hidden;
+        opacity: 0;
+        width: 100%;
+
+        &.show{
+            animation: show .3s ease-out forwards;
+        }
+
+        button{
+            background-color: aliceblue;
+            color: #646464;
+        }
+    }
+
+}
+
+@keyframes show
+{
+    0%{
+        opacity: 0;
+    }
+
+    100%{
+        opacity: 1;
+    }
+}

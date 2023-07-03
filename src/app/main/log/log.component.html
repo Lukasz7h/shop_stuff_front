@@ -1,0 +1,69 @@
+
+
+<div class="login-form">
+    <header>
+        <h2>Zaloguj się</h2>
+        <p>Wypełnij forularz</p>
+    </header>
+    <form #logForm="ngForm" (ngSubmit)="canSend(logForm)">
+
+        <div class="input-section login-section">
+            <input #login ngModel name="login" class="login" type="text" placeholder="Wpisz swój login."/>
+            <div class="animated-button"><span class="icon-repeat-lock"><mat-icon>create</mat-icon></span><button style="cursor: none;" type="button" class="next-button login"><mat-icon>arrow_upward</mat-icon></button></div>
+        </div>
+        
+        <div class="input-section password-section folded">
+            <input #password ngModel name="password" class="password" type="password" placeholder="Wpisz swoje hasło." />
+            <div class="animated-button"><span class="icon-lock"><mat-icon>lock</mat-icon></span> <button style="cursor: none;" type="submit" class="next-button password"><mat-icon>send</mat-icon></button></div>
+        </div>
+
+        <div class="success">
+            <p>ZALOGOWANO</p>
+        </div>
+    </form>
+
+    <div class="reset_pass">
+        <p style="float: left;">Zresetuj hasło.</p> <mat-icon (click)="show()">keyboard_arrow_down</mat-icon>
+
+        <div class="send" #send>
+            <input #email placeholder="Podaj email" type="text"><button (click)="resetPass()">Wyślij</button>
+        </div>
+        
+    </div>
+    
+</div>
+
+<div id="background_animation">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+</div>

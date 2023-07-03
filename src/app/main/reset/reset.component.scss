@@ -1,0 +1,42 @@
+div{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    border-radius: 12px;
+    box-shadow: 8px 5px 27px -10px rgba(66, 68, 90, .4);
+    padding: 40px 60px;
+
+    background-color: rgba(255, 255, 255, 0.39);
+
+    input{
+      color: #605d5d;
+    }
+}
+
+button {
+    position: relative;
+    display: block;
+
+    overflow: hidden;
+    margin: 1rem auto;
+
+    text-transform: uppercase;
+    border: 1px solid currentColor;
+
+    background: aliceblue;
+    color: #605d5d;
+  
+    &:before {
+      content: '';
+      transform: translateX(-100%);
+    }
+  
+    &:hover {
+  
+      &:before {
+        transform: translateX(0);
+      }
+    }
+}

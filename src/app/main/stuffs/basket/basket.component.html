@@ -1,0 +1,13 @@
+<div id="box">
+    <mat-icon id="basket" >shopping_basket</mat-icon><span>{{numberOfStuff}}</span> &nbsp;&nbsp; <span *ngIf="stuff.length > 0">cena: {{price}}zł</span>
+
+    <div [ngClass]="showList? 'show' : 'hide'">
+        <div *ngFor="let e of stuff">
+            <p>{{e.amount}}szt. - {{e.stuff.name}} - {{e.stuff.price}}zł <button style="cursor: none;" (click)="basketAction('add', e.stuff._id)"><mat-icon>add</mat-icon></button> <button style="cursor: none;" (click)="basketAction('remove', e.stuff._id)"><mat-icon>remove</mat-icon></button></p>
+        </div>
+
+        <button style="cursor: none;" (click)="shareBasket()">Udostępnij koszyk</button> <button (click)="clearBasket()">Wyczyść</button>
+    </div>
+    
+    <span id="arrow"><mat-icon #arrow (click)="toggleAction(arrow._elementRef.nativeElement)">keyboard_arrow_down</mat-icon></span>
+</div>
