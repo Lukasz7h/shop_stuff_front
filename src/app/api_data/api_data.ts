@@ -1,3 +1,3 @@
 export const data = {
-    url: "https://extinct-bandanna-bass.cyclic.app/"
+    url: "https://rose-blushing-cheetah.cyclic.app/"
 }
