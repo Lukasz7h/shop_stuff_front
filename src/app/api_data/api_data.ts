@@ -1,3 +1,3 @@
 export const data = {
-    url: "https://shopstuffback-production.up.railway.app/"
+    url: "https://enthusiastic-erin-slippers.cyclic.app/"
 }
