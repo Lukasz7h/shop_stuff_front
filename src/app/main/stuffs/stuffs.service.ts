@@ -63,7 +63,9 @@ export class StuffsService {
           {
             console.log(this.filterObj);
             console.log(arr[i]);
+            
             console.log(this.filterObj[arr[i]]);
+            console.log(e);
             if(this.filterObj[arr[i]] && e[`${arr[i]}`] < this.filterObj[arr[i]]) flag = false;
           }
         }
