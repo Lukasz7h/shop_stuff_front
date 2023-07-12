@@ -37,13 +37,16 @@ export class StuffsComponent implements OnInit
     private clipboardService: ClipboardService
   ){}
 
+  isset: boolean = true;
+
   ngOnInit(): void
   {
+    if(this.stuffService.stuffs) this.isset = false;
 
     this.httpClient.get(data.url+"stuff/")
     .subscribe((e: []) => {
       
-      document.getElementById("wait").remove();
+      this.isset = false;
       
       e.forEach((element: any) => {
         if( !!!this.storeList.find((x => x == element.store)) ) this.storeList.push(element.store);
