@@ -50,7 +50,7 @@ export class CreateAccountService
          
         }
         else{
-          alert(data.error);
+          alert(data.errors[0]);
         }
     });
   }
