@@ -1,11 +1,11 @@
-import { ChangeDetectorRef, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StuffsService {
 
-  constructor(private changeServ: ChangeDetectorRef) { }
+  constructor() { }
 
   originStuffs: {
     name: string,
@@ -36,7 +36,6 @@ export class StuffsService {
 
   filter(e: Event)
   {
-
     const value = isNaN(e.target['value'])? e.target['value']: Number(e.target['value']);
     this.filterObj[`${e.target['name']}`] = value;
 
