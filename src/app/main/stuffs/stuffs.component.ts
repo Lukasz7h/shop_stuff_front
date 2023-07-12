@@ -119,4 +119,10 @@ export class StuffsComponent implements OnInit
   {
     this.clipboardService.copy(text);
   }
+
+  filter(e: Event)
+  {
+    this.stuffService.filter(e);
+    this.changeDetRef.detectChanges();
+  }
 }

@@ -4,7 +4,7 @@
 <p *ngIf="stuffService.stuffs && stuffService.stuffs.length > 0" id="sort">Według ceny: &nbsp;<span (click)="sort('ascending')">Rosnąco</span> &nbsp;&nbsp; <span (click)="sort('descending')">Malejąco</span></p>
 <app-basket [newStuff]="addThat" (emiter)="newBasket($event)"></app-basket>
 
-<div #filterElement id="filter" (input)="stuffService.filter($event)">
+<div #filterElement id="filter" (input)="filter($event)">
     <div>
         <span>
             <input name="name" type="text">
