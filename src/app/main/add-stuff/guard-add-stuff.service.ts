@@ -19,27 +19,21 @@ export class GuardAddStuffService
     function getData(): Promise<boolean>
     {
       return new Promise((resolve) => {
-        try
-        {
-          that.httpClient.get(data.url + "log/is_log/", {withCredentials: true})
-          .pipe(
-            catchError((err: any, data: any): any => {
-              if(err) {
-                resolve(false);
-                return of([])
-              };
-  
-            })
-            )
-          .subscribe((e) => {
-            resolve(!!e);
-          });
-        }
-        catch(err)
-        {
-          alert("Aby dodawać produkty musisz być zalogowany!")
-        }
-        
+        that.httpClient.get(data.url + "log/is_log/", {withCredentials: true})
+        .pipe(
+          catchError((err: any, data: any): any => {
+            if(err) {
+              resolve(false);
+              alert("Dodawać produkty mogą tylko zalogowani użytkownicy.");
+              return of([])
+            };
+
+          })
+          )
+        .subscribe((e) => {
+          if(!!!e) alert("Aby dodawać produkty musisz być zalogowany!")
+          resolve(!!e);
+        });
         
       });
     }
