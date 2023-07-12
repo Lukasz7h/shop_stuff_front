@@ -33,11 +33,6 @@ export class AddStuffService {
     return file instanceof File;
   }
 
-  showErr(noticeElement: HTMLElement)
-  {
-
-  }
-
   setValue(noticeElement: HTMLElement, value: any, name: string, price: number): any
   {
     const newValue = {
@@ -52,7 +47,6 @@ export class AddStuffService {
       const name = e.getAttribute("name");
 
       if(isNaN(thatValue)){
-        this.showErr(noticeElement);
         return false;
       };
 
@@ -110,7 +104,7 @@ export class AddStuffService {
       {withCredentials: true}
     )
     .subscribe((e: any) => {
-      console.log(e);
+      if(e.add) alert("Dodano produkt.");
     });
   }
 }
