@@ -52,6 +52,7 @@ export class StuffsService {
     this.stuffs = this.originStuffs.filter((e: any) => {
       
       let flag: boolean = true;
+      console.log(e);
 
       if(!this.filterObj.name || (this.filterObj.name && e.name.includes(`${this.filterObj.name}`)))
       {
@@ -61,6 +62,7 @@ export class StuffsService {
         {
           for(let i=0; i<arr.length; i++)
           {
+            console.log(this.filterObj[arr[i]]);
             if(this.filterObj[arr[i]] && e[`${arr[i]}`] < this.filterObj[arr[i]]) flag = false;
           }
         }
@@ -73,10 +75,11 @@ export class StuffsService {
       else
       {
         flag = false;
-      }
+      };
 
       if(flag) return e;
     });
+
 
   }
 
