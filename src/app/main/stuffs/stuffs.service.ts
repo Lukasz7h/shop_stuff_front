@@ -39,6 +39,13 @@ export class StuffsService {
     const value = isNaN(e.target['value'])? e.target['value']: Number(e.target['value']);
     this.filterObj[`${e.target['name']}`] = value;
 
+    if(!value && e.target['parentElement'].classList.contains("active"))
+    {
+      e.target['parentElement'].classList.remove("active");
+      e.target['value'] = "";
+      return;
+    };
+
     const arr = Object.keys({
       protein: 0,
       carb: 0,
@@ -49,9 +56,11 @@ export class StuffsService {
       kcal: 0
     });
 
+    if(!e.target['parentElement'].classList.contains("active")) e.target['parentElement'].classList.add("active");
     this.stuffs = this.originStuffs.filter((e: any) => {
       
       let flag: boolean = true;
+      
 
       if(!this.filterObj.name || (this.filterObj.name && e.name.includes(`${this.filterObj.name}`)))
       {
@@ -61,11 +70,6 @@ export class StuffsService {
         {
           for(let i=0; i<arr.length; i++)
           {
-            console.log(this.filterObj);
-            console.log(arr[i]);
-
-            console.log(this.filterObj[arr[i]]);
-            console.log(e);
             if(this.filterObj[arr[i]] && e.values[`${arr[i]}`].value < this.filterObj[arr[i]]) flag = false;
           }
         }

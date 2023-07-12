@@ -58,7 +58,8 @@ export class StuffsComponent implements OnInit
   clean(filterElement: HTMLElement)
   {
     Array.from(filterElement.getElementsByTagName("input"))
-    .forEach((e) => {
+    .forEach((e: HTMLInputElement) => {
+      if(!e.parentElement.classList.contains("active")) e.parentElement.classList.remove("active");
       e.value = "";
     });
     

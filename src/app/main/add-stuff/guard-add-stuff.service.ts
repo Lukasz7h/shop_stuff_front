@@ -30,6 +30,7 @@ export class GuardAddStuffService
           })
           )
         .subscribe((e) => {
+          if(!!!e) alert("Aby dodawać produkty musisz być zalogowany!")
           resolve(!!e);
         });
         

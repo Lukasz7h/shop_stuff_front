@@ -76,6 +76,13 @@ $top_after: 35, 86.3, 137.6, 188.9, 240.2, 291.5, 342.8;
                 z-index: 2;
                 background: #ffffff00;
             }
+
+            @for $i from 1 through 7{
+                &.active:nth-of-type(#{$i})::after{
+                    animation: span_anim_#{$i} .3s ease-out forwards;
+                }
+            }
+            
         }
 
         span:focus-within{
