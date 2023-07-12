@@ -43,6 +43,8 @@ export class StuffsComponent implements OnInit
     this.httpClient.get(data.url+"stuff/")
     .subscribe((e: []) => {
       
+      document.getElementById("wait").remove();
+      
       e.forEach((element: any) => {
         if( !!!this.storeList.find((x => x == element.store)) ) this.storeList.push(element.store);
       });
