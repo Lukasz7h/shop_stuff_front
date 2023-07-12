@@ -80,7 +80,6 @@ export class StuffsService {
     });
 
     console.log(this.stuffs);
-    this.changeServ.detectChanges();
 
   }
 
