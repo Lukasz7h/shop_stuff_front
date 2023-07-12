@@ -79,6 +79,7 @@ export class StuffsService {
       if(flag) return e;
     });
 
+    console.log(this.stuffs);
     this.changeServ.detectChanges();
 
   }
