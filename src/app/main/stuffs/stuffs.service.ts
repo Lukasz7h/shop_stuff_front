@@ -1,11 +1,11 @@
-import { ChangeDetectorRef, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StuffsService {
 
-  constructor(private changeDet: ChangeDetectorRef) { }
+  constructor() { }
 
   originStuffs: {
     name: string,
