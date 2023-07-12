@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import { ChangeDetectorRef, Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StuffsService {
 
-  constructor() { }
+  constructor(private changeDet: ChangeDetectorRef) { }
 
   originStuffs: {
     name: string,
@@ -79,7 +79,8 @@ export class StuffsService {
     });
 
     console.log(this.stuffs);
-
+    this.changeDet.detectChanges();
+    
   }
 
 }
