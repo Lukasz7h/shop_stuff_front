@@ -23,7 +23,7 @@ export class AddStuffComponent
   filesStuff: File[] = [];
   filesOfNutrition: File[] = [];
 
-  stores: string[] = ["Biedronka", "Lidl", "Carrefour", "Dino", "Kaufland", "Auchan", "Stokrotka", "Żabka", "Netto", "Tesco", "Aldi", "Lewiatan", "Intermarche", "Piotr i Paweł", "Groszek", "ABC", "Delikatesy Centrum", "E.Leclerc"]
+  stores: string[] = ["Biedronka", "Lidl", "Carrefour", "Dino", "Kaufland", "Auchan", "Stokrotka", "Żabka", "Netto", "Aldi", "Lewiatan", "Intermarche", "Groszek", "ABC", "Delikatesy Centrum", "E.Leclerc"]
 
   send(stuffForm: NgForm)
   {
