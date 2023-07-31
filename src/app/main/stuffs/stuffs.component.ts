@@ -6,6 +6,7 @@ import { StuffsService } from './stuffs.service';
 
 import { ClipboardService } from 'ngx-clipboard';
 import { logos } from './images_path';
+
 import { Subject } from 'rxjs';
 
 @Component({
@@ -130,8 +131,9 @@ export class StuffsComponent implements OnInit
     this.clipboardService.copy(text);
   }
 
-  filter(e: Event)
+  filter(e: any)
   {
+    console.log(e);
     this.stuffService.filter(e);
     this.changeDetRef.detectChanges();
   }

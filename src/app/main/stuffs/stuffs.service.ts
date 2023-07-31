@@ -39,6 +39,8 @@ export class StuffsService {
     const value = isNaN(e.target['value'])? e.target['value']: Number(e.target['value']);
     this.filterObj[`${e.target['name']}`] = value;
 
+    console.log(value);
+
     if(!value && e.target['parentElement'].classList.contains("active"))
     {
       e.target['parentElement'].classList.remove("active");
@@ -55,8 +57,6 @@ export class StuffsService {
 
       kcal: 0
     });
-
-    console.log(value);
 
     if(!e.target['parentElement'].classList.contains("active")) e.target['parentElement'].classList.add("active");
     this.stuffs = this.originStuffs.filter((e: any) => {
