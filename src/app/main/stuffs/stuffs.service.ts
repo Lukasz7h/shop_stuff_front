@@ -62,7 +62,7 @@ export class StuffsService {
       let flag: boolean = true;
       
 
-      if(!this.filterObj.name || (this.filterObj.name && e.name.includes(`${this.filterObj.name}`)))
+      if(!this.filterObj.name || (this.filterObj.name && e.name.toLowerCase().includes(`${this.filterObj.name.toLowerCase()}`)))
       {
         if(this.filterObj.store && (!e.store.includes(`${this.filterObj.store}`))) flag = false;
 
