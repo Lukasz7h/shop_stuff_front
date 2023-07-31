@@ -56,11 +56,13 @@ export class StuffsService {
       kcal: 0
     });
 
+    console.log(value);
+
     if(!e.target['parentElement'].classList.contains("active")) e.target['parentElement'].classList.add("active");
     this.stuffs = this.originStuffs.filter((e: any) => {
       
+      console.log(e.name);
       let flag: boolean = true;
-      console.log(e.name)
 
       if(!this.filterObj.name || (this.filterObj.name && e.name.toLowerCase().includes(`${this.filterObj.name.toLowerCase()}`)))
       {

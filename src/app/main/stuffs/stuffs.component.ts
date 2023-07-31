@@ -6,6 +6,7 @@ import { StuffsService } from './stuffs.service';
 
 import { ClipboardService } from 'ngx-clipboard';
 import { logos } from './images_path';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-stuffs',
@@ -19,6 +20,8 @@ export class StuffsComponent implements OnInit
 
   addThat: any;
   basketLinks: string[] = [];
+
+  nameInput = new Subject();
 
   lastNumber: number;
   getLogo(name: string, id: number): string
