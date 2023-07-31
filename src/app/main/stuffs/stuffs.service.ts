@@ -39,12 +39,12 @@ export class StuffsService {
     const value = isNaN(e.target['value'])? e.target['value']: Number(e.target['value']);
     this.filterObj[`${e.target['name']}`] = value;
 
-    console.log(value);
-
     if(!value && e.target['parentElement'].classList.contains("active"))
     {
       e.target['parentElement'].classList.remove("active");
       e.target['value'] = "";
+
+      this.stuffs = this.originStuffs;
       return;
     };
 
@@ -60,8 +60,7 @@ export class StuffsService {
 
     if(!e.target['parentElement'].classList.contains("active")) e.target['parentElement'].classList.add("active");
     this.stuffs = this.originStuffs.filter((e: any) => {
-      
-      console.log(e.name);
+    
       let flag: boolean = true;
 
       if(!this.filterObj.name || (this.filterObj.name && e.name.toLowerCase().includes(`${this.filterObj.name.toLowerCase()}`)))

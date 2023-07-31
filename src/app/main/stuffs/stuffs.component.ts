@@ -133,7 +133,6 @@ export class StuffsComponent implements OnInit
 
   filter(e: any)
   {
-    console.log(e);
     this.stuffService.filter(e);
     this.changeDetRef.detectChanges();
   }
