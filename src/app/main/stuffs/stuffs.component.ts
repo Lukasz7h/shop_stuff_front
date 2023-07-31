@@ -69,6 +69,7 @@ export class StuffsComponent implements OnInit
     });
     
     this.stuffService.filterObj = {};
+    this.stuffService.stuffs = this.stuffService.originStuffs;
   }
 
   actionStore(event: Event)
