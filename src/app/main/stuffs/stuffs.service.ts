@@ -60,7 +60,6 @@ export class StuffsService {
     this.stuffs = this.originStuffs.filter((e: any) => {
       
       let flag: boolean = true;
-      
 
       if(!this.filterObj.name || (this.filterObj.name && e.name.toLowerCase().includes(`${this.filterObj.name.toLowerCase()}`)))
       {
