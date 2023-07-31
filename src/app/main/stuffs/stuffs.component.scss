@@ -38,7 +38,7 @@ $top_after: 35, 86.3, 137.6, 188.9, 240.2, 291.5, 342.8;
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: #fff;
+    background: #918282;
     margin: -4px 0 0 -4px;
   }
 
@@ -117,11 +117,19 @@ $top_after: 35, 86.3, 137.6, 188.9, 240.2, 291.5, 342.8;
   
 
 #sort{
-    color: #f0f0f0;
+    color: #5b5954;
     position: absolute;
     text-align: center;
     margin-top: 40px;
     width: 100%;
+
+    span{
+        transition: text-decoration .4s;
+
+        &:hover{
+            text-decoration: underline;
+        }
+    }
 }
 
 .bg{
@@ -131,7 +139,7 @@ $top_after: 35, 86.3, 137.6, 188.9, 240.2, 291.5, 342.8;
     bottom: 0;
     right: 0;
     height: 100vh;
-    background: linear-gradient(0deg, rgba(215,78,133,1) 10%, rgba(203,61,108,1) 60%, rgba(193,54,128,1) 96%);
+    background: #f9f9f9;
 }
 
 #filter{
@@ -240,16 +248,14 @@ $top_after: 35, 86.3, 137.6, 188.9, 240.2, 291.5, 342.8;
     .stuff{
         width: 260px;
         text-align: center;
-    
         margin: 35px 55px;
+
         position: relative;
-    
-        box-shadow: 2px 3px 13px -7px rgba(66, 68, 90, 1);
-        border-radius: 10px;
-    
+        box-shadow: 2px 3px 13px -7px #42445a;
+        border-radius: 5px;
+
         border: none;
         transition: all .4s;
-
         background: $background;
     
         .container{
@@ -299,11 +305,11 @@ $top_after: 35, 86.3, 137.6, 188.9, 240.2, 291.5, 342.8;
             font-weight: 600;
             color: #382b22;
             text-transform: uppercase;
-            padding: 3px 10px;
+            padding: 1px 6px;
             background: #69b79a;
             border: 1px solid #adadad;
-            border-radius: 7px;
-            transition: transform 0.15s;
+            border-radius: 5px;
+            transition: transform .15s;
             transform-style: preserve-3d;
         }
 

@@ -1,13 +1,15 @@
 <div id="box">
     <mat-icon id="basket" >shopping_basket</mat-icon><span>{{numberOfStuff}}</span> &nbsp;&nbsp; <span *ngIf="stuff.length > 0">cena: {{price}}zł</span>
 
-    <div [ngClass]="showList? 'show' : 'hide'">
-        <div *ngFor="let e of stuff">
-            <p>{{e.amount}}szt. - {{e.stuff.name}} - {{e.stuff.price}}zł <button style="cursor: none;" (click)="basketAction('add', e.stuff._id)"><mat-icon>add</mat-icon></button> <button style="cursor: none;" (click)="basketAction('remove', e.stuff._id)"><mat-icon>remove</mat-icon></button></p>
+    <div style="display: flex; position: relative; height: max-content;">
+        <div [ngClass]="showList? 'show' : 'hide'">
+            <div *ngFor="let e of stuff" style="margin-top: 7px; border-bottom: 1px dotted black;">
+                <p>{{e.amount}}szt. - {{e.stuff.name}} - {{e.stuff.price}}zł <button style="cursor: none;" (click)="basketAction('add', e.stuff._id)"><mat-icon>add</mat-icon></button> <button style="cursor: none;" (click)="basketAction('remove', e.stuff._id)"><mat-icon>remove</mat-icon></button></p>
+            </div>
+    
+            <button style="cursor: none; position: absolute; bottom: 10px; left: 5px;" (click)="shareBasket()">Udostępnij koszyk</button> <button style="position: absolute; bottom: 10px; right: 10px;" (click)="clearBasket()">Wyczyść</button>
         </div>
-
-        <button style="cursor: none;" (click)="shareBasket()">Udostępnij koszyk</button> <button (click)="clearBasket()">Wyczyść</button>
+        <span id="arrow"><mat-icon #arrow (click)="toggleAction(arrow._elementRef.nativeElement)">keyboard_arrow_down</mat-icon></span>
     </div>
     
-    <span id="arrow"><mat-icon #arrow (click)="toggleAction(arrow._elementRef.nativeElement)">keyboard_arrow_down</mat-icon></span>
 </div>

@@ -12,8 +12,7 @@ export class RouteService
 
   constructor(
     private route: Router
-  )
-  {}
+  ){}
 
   listenRoute(): void
   {

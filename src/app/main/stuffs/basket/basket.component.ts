@@ -152,6 +152,6 @@ export class BasketComponent implements OnInit, OnDestroy
     this.showList = !this.showList;
     this.changeDetRef.detectChanges();
 
-    this.showList? arrow.style.transform = "rotate(180deg)": arrow.style.transform = "rotate(0deg)";
+    this.showList? document.getElementById("arrow").classList.add("move"): document.getElementById("arrow").classList.remove("move");
   }
 }
