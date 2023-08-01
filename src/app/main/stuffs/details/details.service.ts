@@ -197,10 +197,9 @@ export class DetailsService {
 
     this.storyLabel = [];
 
-    console.log(history);
     history
     .forEach((e: any, key: number) => {
-      this.storyLabel.push(e.store);
+      if(!this.storyLabel.find((x) => x == e.store)) this.storyLabel.push(e.store);
       countPrice(e.price, key)
     });
 
@@ -215,16 +214,11 @@ export class DetailsService {
     this.thatMonth = Number(Object.keys(this.storesHistoryMonth)[Object.keys(this.storesHistoryMonth).length - 1]):
     this.thatYear = Number(Object.keys(this.storesHistoryYear)[Object.keys(this.storesHistoryYear).length - 1]);
 
-    console.log(this.lineStatic.data)
-
     period == 'Month'?
     [that = "Miesiąc:", this.lineStatic.data = this.storesHistoryMonth[this.thatMonth], this.lineStatic.label = "Średnia cena produktu w sklepach. "+ that+ ` ${this.year[this.thatMonth - 1]}`]:
     [that = "roku", this.lineStatic.data = this.storesHistoryYear[this.thatYear], this.lineStatic.label = "Średnia cena produktu w sklepach. W "+ that+ ` ${this.thatYear}` ];
 
     this.lineChartLabels = this.storyLabel;
-
-    console.log(this.lineStatic.data);
-    console.log(this.lineChartLabels)
 
     return [this.lineStatic];
   }
