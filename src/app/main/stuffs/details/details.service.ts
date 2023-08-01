@@ -181,6 +181,9 @@ export class DetailsService {
 
         if( !that.storesHistoryYear[year][key]) that.storesHistoryYear[year][key] = 0;
         if( !that.storesHistoryMonth[month][key] ) that.storesHistoryMonth[month][key] = 0;
+
+        console.log(e.price);
+        console.log( that.storesHistoryMonth[month][key])
         
         that.storesHistoryYear[year][key] += Number(e.price);
         that.storesHistoryMonth[month][key] += Number(e.price);
@@ -190,6 +193,8 @@ export class DetailsService {
 
         that.storesHistoryYear[year][key] = Math.round(that.storesHistoryYear[year][key] * 100) / 100;
         that.storesHistoryMonth[month][key] = Math.round(that.storesHistoryMonth[month][key] * 100) / 100;
+
+        console.log( that.storesHistoryMonth[month][key]);
 
         count++;
       });
