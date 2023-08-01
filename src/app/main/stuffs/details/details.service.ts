@@ -203,6 +203,7 @@ export class DetailsService {
 
     this.storyLabel = [];
 
+    console.log(history);
     history
     .forEach((e: any, key: number) => {
       this.storyLabel.push(e.store);
