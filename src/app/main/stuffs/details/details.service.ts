@@ -214,6 +214,9 @@ export class DetailsService {
     this.thatMonth = Number(Object.keys(this.storesHistoryMonth)[Object.keys(this.storesHistoryMonth).length - 1]):
     this.thatYear = Number(Object.keys(this.storesHistoryYear)[Object.keys(this.storesHistoryYear).length - 1]);
 
+    console.log(this.year);
+    console.log(this.storesHistoryMonth);
+
     period == 'Month'?
     [that = "Miesiąc:", this.lineStatic.data = this.storesHistoryMonth[this.thatMonth], this.lineStatic.label = "Średnia cena produktu w sklepach. "+ that+ ` ${this.year[this.thatMonth - 1]}`]:
     [that = "roku", this.lineStatic.data = this.storesHistoryYear[this.thatYear], this.lineStatic.label = "Średnia cena produktu w sklepach. W "+ that+ ` ${this.thatYear}` ];
