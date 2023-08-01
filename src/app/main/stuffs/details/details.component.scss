@@ -10,6 +10,14 @@ $width_image: 450px;
 
     background: #f9f9f9;
     z-index: -10;
+
+    svg{
+        position: absolute;
+        left: -500px;
+        top: -260px;
+        width: 3100px;
+        height: 3000px;
+    }
 }
 
 #describe{
