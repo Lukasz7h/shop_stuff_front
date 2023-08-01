@@ -170,7 +170,6 @@ export class DetailsService {
     function countPrice(price: [], key: number): void
     {
       let count: number = 1;
-      console.log(price);
 
       price
       .forEach((e: {price: string, date: string}) => {
@@ -182,9 +181,6 @@ export class DetailsService {
 
         if( !that.storesHistoryYear[year][key]) that.storesHistoryYear[year][key] = 0;
         if( !that.storesHistoryMonth[month][key] ) that.storesHistoryMonth[month][key] = 0;
-
-        console.log(e.price);
-        console.log( that.storesHistoryMonth[month][key])
         
         that.storesHistoryYear[year][key] += Number(e.price);
         that.storesHistoryMonth[month][key] += Number(e.price);
@@ -194,8 +190,6 @@ export class DetailsService {
 
         that.storesHistoryYear[year][key] = Math.round(that.storesHistoryYear[year][key] * 100) / 100;
         that.storesHistoryMonth[month][key] = Math.round(that.storesHistoryMonth[month][key] * 100) / 100;
-
-        console.log( that.storesHistoryMonth[month][key]);
 
         count++;
       });
@@ -221,14 +215,17 @@ export class DetailsService {
     this.thatMonth = Number(Object.keys(this.storesHistoryMonth)[Object.keys(this.storesHistoryMonth).length - 1]):
     this.thatYear = Number(Object.keys(this.storesHistoryYear)[Object.keys(this.storesHistoryYear).length - 1]);
 
-    console.log(this.year);
-    console.log(this.storesHistoryMonth);
+    console.log(this.lineStatic.data)
 
     period == 'Month'?
     [that = "Miesiąc:", this.lineStatic.data = this.storesHistoryMonth[this.thatMonth], this.lineStatic.label = "Średnia cena produktu w sklepach. "+ that+ ` ${this.year[this.thatMonth - 1]}`]:
     [that = "roku", this.lineStatic.data = this.storesHistoryYear[this.thatYear], this.lineStatic.label = "Średnia cena produktu w sklepach. W "+ that+ ` ${this.thatYear}` ];
 
     this.lineChartLabels = this.storyLabel;
+
+    console.log(this.lineStatic.data);
+    console.log(this.lineChartLabels)
+
     return [this.lineStatic];
   }
 
