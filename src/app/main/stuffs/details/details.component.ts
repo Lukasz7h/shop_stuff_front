@@ -8,6 +8,7 @@ import { DetailsService } from './details.service';
 import { Chart } from "chart.js"
 
 Chart.defaults.backgroundColor = 'red';
+Chart.defaults.responsive = true;
 
 @Component({
   selector: 'app-details',
