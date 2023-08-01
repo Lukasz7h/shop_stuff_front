@@ -170,6 +170,7 @@ export class DetailsService {
     function countPrice(price: [], key: number): void
     {
       let count: number = 1;
+      console.log(price);
 
       price
       .forEach((e: {price: string, date: string}) => {
