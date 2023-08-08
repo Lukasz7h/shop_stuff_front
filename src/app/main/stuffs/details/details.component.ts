@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { StuffsService } from '../stuffs.service';
@@ -20,7 +20,9 @@ export class DetailsComponent implements OnInit
   constructor(
     private router: ActivatedRoute,
     private service: StuffsService,
-    public detailsService: DetailsService
+
+    public detailsService: DetailsService,
+    private changeDetRef: ChangeDetectorRef
   ){}
 
   @Input() lineChartData: any[];
@@ -95,6 +97,10 @@ export class DetailsComponent implements OnInit
   async ngOnInit(): Promise<void>
   {
     const id = this.router.snapshot.paramMap.get("id");
+
+    window.addEventListener("resize", () => {
+
+    });
 
     this.service.originStuffs.length > 0?
     [this.stuff = this.service.originStuffs.filter((e: any) => e._id == id)[0], this.getHistory()]:
