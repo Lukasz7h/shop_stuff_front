@@ -12,6 +12,7 @@ import { StuffsComponent } from './main/stuffs/stuffs.component';
 
 import { DetailsComponent } from './main/stuffs/details/details.component';
 import { BasketDetailsComponent } from './main/stuffs/basket/basket-details/basket-details.component';
+
 import { ResetComponent } from './main/reset/reset.component';
 import { GuardResetService } from './main/reset/guard-reset.service';
 

@@ -23,11 +23,11 @@ export class StuffsComponent implements OnInit
   basketLinks: string[] = [];
 
   nameInput = new Subject();
-
   lastNumber: number;
+
   getLogo(name: string, id: number): string
   {
-    if(this.lastNumber && this.lastNumber > id ) this.changeDetRef.detach();
+    console.log(name);
 
     this.lastNumber = id;
     return logos[`${name}`];
@@ -37,7 +37,6 @@ export class StuffsComponent implements OnInit
     private httpClient: HttpClient,
     public stuffService: StuffsService,
 
-    private changeDetRef: ChangeDetectorRef,
     private clipboardService: ClipboardService
   ){}
 
@@ -48,23 +47,27 @@ export class StuffsComponent implements OnInit
     if(this.stuffService.stuffs) this.isset = true;
 
     this.httpClient.get(data.url+"stuff/")
-    .subscribe((e: []) => {
-      
-      this.isset = true;
-      
-      e.forEach((element: any) => {
-        if( !!!this.storeList.find((x => x == element.store)) ) this.storeList.push(element.store);
-      });
-
-      this.stuffService.originStuffs = e;
-      this.stuffService.stuffs = e;
-    })
+    .subscribe(this.setList)
 
     const basket = localStorage.getItem("basketLinks");
     if(basket) this.basketLinks = JSON.parse(basket);
   }
 
-  clean(filterElement: HTMLElement)
+  //  <--- pobrane prdukty są dodawane do listy która jest wyświetlana ---->
+  setList(e: []): void
+  {
+    this.isset = true;
+      
+    e.forEach((element: any) => {
+      if( !!!this.storeList.find((x => x == element.store)) ) this.storeList.push(element.store);
+    });
+
+    this.stuffService.originStuffs = e;
+    this.stuffService.stuffs = e;
+  }
+
+  //  <--- filtry zostają wyczyszczone ---->
+  clean(filterElement: HTMLElement): void
   {
     Array.from(filterElement.getElementsByTagName("input"))
     .forEach((e: HTMLInputElement) => {
@@ -79,12 +82,12 @@ export class StuffsComponent implements OnInit
   actionStore(event: Event)
   {
     this.stuffService.filter(event);
-    this.changeDetRef.detectChanges();
   }
 
+  //  <--- sortujemy produkty po cenie malejąco lub rosnąco ---->
   sort(action: string)
   {
-  this.stuffService.stuffs = action == "ascending"?
+    this.stuffService.stuffs = action == "ascending"?
     this.stuffService.stuffs.sort((a, b) => {
       return a.price - b.price;
     }):
@@ -93,47 +96,42 @@ export class StuffsComponent implements OnInit
     }).reverse();
   }
 
-  addStuff(data)
+   //  <--- dodajemy nowy produkt do koszyka ---->
+  addStuff(data): void
   {
     this.addThat = data;
-    this.changeDetRef.detectChanges();
     
     setTimeout(() => {
       this.addThat = undefined;
-      this.changeDetRef.detectChanges();
     }, 0);
   }
 
-  newBasket(data: {url: string})
+  //  <--- tworzymy nowy link do utworzonego koszyka ---->
+  newBasket(data: {url: string}): void
   {
     this.basketLinks.push(data.url);
     localStorage.setItem("basketLinks", JSON.stringify(this.basketLinks));
-
-    this.changeDetRef.detectChanges();
   }
 
-  deleteLink(e: string)
+  //  <--- usuwamy link do wybranego koszyka ---->
+  deleteLink(e: string): void
   {
     this.basketLinks.splice( this.basketLinks.indexOf(e), 1);
     localStorage.setItem("basketLinks", JSON.stringify(this.basketLinks));
-
-    this.changeDetRef.detectChanges();
   }
 
-  purchaseMode()
+  purchaseMode(): void
   {
     this.purchase = !this.purchase;
-    this.changeDetRef.detectChanges();
   }
 
-  copy(text: string)
+  copy(text: string): void
   {
     this.clipboardService.copy(text);
   }
 
-  filter(e: any)
+  filter(e: any): void
   {
     this.stuffService.filter(e);
-    this.changeDetRef.detectChanges();
   }
 }

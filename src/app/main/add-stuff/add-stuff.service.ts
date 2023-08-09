@@ -33,61 +33,7 @@ export class AddStuffService {
     return file instanceof File;
   }
 
-  setValue(noticeElement: HTMLElement, value: any, name: string, price: number): any
-  {
-    const newValue = {
-      nutritional: {},
-      other: {}
-    };
-
-    Array.from(noticeElement.getElementsByClassName("stuff"))
-    .every((e: HTMLElement) => {
-
-      const thatValue = Number(e.getElementsByTagName("span").item(0).textContent);
-      const name = e.getAttribute("name");
-
-      if(isNaN(thatValue)){
-        return false;
-      };
-
-      value.nutritional[`${name}`]? [
-        Object.defineProperty(newValue.nutritional, `${name}`, {value: {task: value.nutritional[`${name}`].task}, enumerable: true}),
-        newValue.nutritional[`${name}`].value = thatValue
-      ]:
-      [
-        Object.defineProperty(newValue.other, `${name}`, {value: {task: value.other[`${name}`].task}, enumerable: true}),
-        newValue.other[`${name}`].value = thatValue
-      ];
-
-      return true;
-    });
-
-    Object.defineProperty(newValue.other, "store", {value: this.store, enumerable: true});
-    Object.defineProperty(newValue.other, "name", {value: {value: name}, enumerable: true});
-    Object.defineProperty(newValue.other, "price", {value: {value: price}, enumerable: true});
-
-    let valueString = "{";
-
-    for(let key in newValue)
-    {
-      const currentObj = newValue[`${key}`];
-      const arr = Object.keys(currentObj);
-
-      valueString += `"${key}": {`
-
-      arr.forEach((e, key) => {
-        valueString += `"${e}": `+JSON.stringify(currentObj[`${e}`]);
-        if(key !== arr.length - 1) valueString += ", "
-      });
-
-      valueString += "}";
-      if(key == "nutritional") valueString += ", ";
-    };
-
-    valueString += "}";
-    return valueString;
-  }
-
+  //  <--- wysyłanie formularza z nowym produktem ---->
   sendForm({name, price, file, image, store})
   {
     const form = new FormData();

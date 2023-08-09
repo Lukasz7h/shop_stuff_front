@@ -13,6 +13,7 @@ export class LogService {
   
   constructor(private httpClient: HttpClient, private router: Router){}
 
+  //  <--- walidacja danych z formularza ---->
   validation(loginForm: NgForm): boolean | any
   {
     const errors = {login: "", password: ""};
@@ -35,13 +36,8 @@ export class LogService {
 
     return errors.login.length > 0 || errors.password.length? errors: true;
   }
-
-  showErrors(element: {login: HTMLElement, password: HTMLElement}, errors: any)
-  {
-    if(errors.login && !(element.login.nextSibling instanceof HTMLParagraphElement) ) element.login.insertAdjacentHTML("afterend", `<p>${errors.login}</p>`);
-    if(errors.password && !(element.password.nextSibling instanceof HTMLParagraphElement)) element.password.insertAdjacentHTML("afterend", `<p>${errors.password}</p>`);
-  }
-
+  
+  //  <--- wysyłanie formularza z logowaniem ---->
   sendLogForm(formValues: {login: string, password: string})
   {
     this.httpClient.post(data.url+"log/",

@@ -68,7 +68,7 @@ export class CreateAccountComponent implements AfterViewInit
       document.querySelector(".password-section").classList.remove("folded");
     });
     
-    //  <--- password ---->
+    //  <--- hasło ---->
 
     document.querySelector(".password").addEventListener("keyup", function () {
       if (this.value.length >= 7 && this.value.length <= 24) {

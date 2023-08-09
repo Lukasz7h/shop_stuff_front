@@ -25,10 +25,12 @@ export function init(number)
 
     // Just in case you need to scroll
     let scrollHeight = 0;
+    
     window.addEventListener('scroll', function(e) {
       scrollHeight = window.scrollY
     })
 
+    // rozmiar kursora
     let cursorOuterOriginalState = {
       width: 40,
       height: 40,
@@ -78,6 +80,7 @@ export function init(number)
 
     updateCursor();
 
+    // gdy najeżdżamy kursorem na element Button
     function handleMouseEnter(e)
     {
       isStuck = true;
@@ -93,6 +96,7 @@ export function init(number)
       });
     }
 
+    // gdy kursor opuszcza element Button
     function handleMouseLeave(e) {
       isStuck = false;
 

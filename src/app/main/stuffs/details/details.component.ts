@@ -27,80 +27,25 @@ export class DetailsComponent implements OnInit
 
   @Input() lineChartData: any[];
 
-  stuff;
-  stuffHistory;
+  protected stuff;
+  private stuffHistory;
 
-  history;
+  private history;
 
-  lineChartLabels: Array<any> = [];
-  lineChartOptions: any = {
+  protected lineChartLabels: Array<any> = [];
+  protected lineChartOptions: any = {
     responsive: true
   };
   
-  lineChartLegend = true;
-  lineChartType: any = 'line';
+  protected lineChartLegend = true;
+  protected lineChartType: any = 'line';
 
-  inlinePlugin: any;
-  textPlugin: any;
-
-  action(action: string)
-  {
-    this.lineChartData = this.detailsService.actionMonth(action, this.lineChartType);
-    this.lineChartLabels = this.detailsService.lineChartLabels;
-  }
-
-  async getHistory()
-  {
-    await fetch(data.url+"stuff/history/"+this.stuff.name)
-    .then((e) => {
-
-      e.json()
-      .then((result) => {
-
-        this.stuffHistory = result.filter((e: any) => (e.name == this.stuff.name && e.store == this.stuff.store))[0];
-        this.detailsService.setChart(this.stuff, this.stuffHistory);
-
-        this.detailsService.setStoresLabel(result);
-
-        this.lineChartData = this.detailsService.lineChartData;
-        this.lineChartLabels = this.detailsService.lineChartLabels;
-      })
-    });
-  }
-
-  changePeriod(data: any)
-  {
-    this.lineChartType = "line";
-
-    switch(data.target.value)
-    {
-      case "year":
-        this.lineChartData = this.detailsService.getChart("Year");
-      break;
-      case "month":
-        this.lineChartData = this.detailsService.getChart("Month");
-      break;
-    }
-
-    this.lineChartLabels = this.detailsService.lineChartLabels;
-  }
-
-  comparePriceWithAnotherStores(period: string)
-  {
-    this.lineChartData = this.detailsService.compareStoresPrice(period);
-    this.lineChartLabels = this.detailsService.lineChartLabels;
-
-    this.lineChartType = "bar";
-    Chart.defaults.datasets.bar.maxBarThickness = 100;
-  }
+  private inlinePlugin: any;
+  private textPlugin: any;
 
   async ngOnInit(): Promise<void>
   {
     const id = this.router.snapshot.paramMap.get("id");
-
-    window.addEventListener("resize", () => {
-
-    });
 
     this.service.originStuffs.length > 0?
     [this.stuff = this.service.originStuffs.filter((e: any) => e._id == id)[0], this.getHistory()]:
@@ -125,6 +70,60 @@ export class DetailsComponent implements OnInit
       })
     });
 
+  }
+
+  //  <--- użytkownik zmienił okres wyświelany na wykresie ---->
+  action(action: string): void
+  {
+    this.lineChartData = this.detailsService.actionPeriod(action, this.lineChartType);
+    this.lineChartLabels = this.detailsService.lineChartLabels;
+  }
+
+  //  <--- żądanie które odbiera historie ceny danego produktu ---->
+  async getHistory(): Promise<void>
+  {
+    await fetch(data.url+"stuff/history/"+this.stuff.name)
+    .then((e) => {
+
+      e.json()
+      .then((result) => {
+
+        this.stuffHistory = result.filter((e: any) => (e.name == this.stuff.name && e.store == this.stuff.store))[0];
+        this.detailsService.setChart(this.stuff, this.stuffHistory);
+
+        this.detailsService.setStoresLabel(result);
+
+        this.lineChartData = this.detailsService.lineChartData;
+        this.lineChartLabels = this.detailsService.lineChartLabels;
+      })
+    });
+  }
+
+  //  <--- zmiana okresu dla produktu (miesiąc, rok) ---->
+  changePeriod(data: any): void
+  {
+    this.lineChartType = "line";
+
+    switch(data.target.value)
+    {
+      case "year":
+        this.lineChartData = this.detailsService.getChart("Year");
+      break;
+      case "month":
+        this.lineChartData = this.detailsService.getChart("Month");
+      break;
+    }
+
+    this.lineChartLabels = this.detailsService.lineChartLabels;
+  }
+
+  comparePriceWithAnotherStores(period: string): void
+  {
+    this.lineChartData = this.detailsService.compareStoresPrice(period);
+    this.lineChartLabels = this.detailsService.lineChartLabels;
+
+    this.lineChartType = "bar";
+    Chart.defaults.datasets.bar.maxBarThickness = 100;
   }
 
 }

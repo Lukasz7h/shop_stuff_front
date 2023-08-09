@@ -27,8 +27,7 @@ export class BasketComponent implements OnInit, OnDestroy
 
   @Input() set newStuff(value: any)
   {
-    if(!value) return;
-    if(this.stuff.find(
+    const forFindMethod = (e) => {
       (e) => {
 
         if(e.stuff._id == value._id)
@@ -43,8 +42,11 @@ export class BasketComponent implements OnInit, OnDestroy
           return true;
         };
         return false;
-      })
-    ) return;
+      }
+    };
+
+    if(!value) return;
+    if(this.stuff.find(forFindMethod)) return;
 
     const copy = JSON.parse(JSON.stringify(value));
 
@@ -81,6 +83,7 @@ export class BasketComponent implements OnInit, OnDestroy
     localStorage.setItem("stuff", JSON.stringify({stuff: this.stuff, price: this.price, amount: this.numberOfStuff}));
   }
 
+  //  <--- akcja dla koszyka użytkownika (dodał lub usunął produkt)  ---->
   basketAction(action: string, id: string)
   {
     function removeFromStuff(key: number)
@@ -92,24 +95,25 @@ export class BasketComponent implements OnInit, OnDestroy
       }, 0);
     }
 
-    action == "add"? this.stuff.find((e) => {
-      if(e.stuff._id == id) {
-        
-        let newPrice = e.stuff.price + e.stuff.price / e.amount;
-        e.stuff.price = Math.round(newPrice * 100) / 100;
+    function forEveryEvent(flag: boolean)
+    {
 
-        newPrice = e.stuff.price / (e.amount + 1);  
-        newPrice = Math.round((this.price + newPrice) * 100) / 100;
-
-        this.price = newPrice;
-        e.amount++;
-      }
-    }):
-    this.stuff.every((e, key) => {
-      
-      if(e.stuff._id == id)
+      // metoda liczenia ceny dla dodawanych produktów
+      function method_1(e)
       {
+        let newPrice = e.stuff.price + e.stuff.price / e.amount;
+          e.stuff.price = Math.round(newPrice * 100) / 100;
+  
+          newPrice = e.stuff.price / (e.amount + 1);  
+          newPrice = Math.round((this.price + newPrice) * 100) / 100;
+  
+          this.price = newPrice;
+          e.amount++;
+      }
 
+       // metoda liczenia ceny dla usuwanych produktów
+      function method_2(e, key)
+      {
         let newPrice = this.price - e.stuff.price / e.amount;
         this.price = Math.round(newPrice * 100) / 100;
 
@@ -118,18 +122,23 @@ export class BasketComponent implements OnInit, OnDestroy
 
         e.amount--;
 
-        if(e.amount == 0){
-          removeFromStuff.call(this, key);
-          return false;
-        };
+        if(e.amount == 0) removeFromStuff.call(this, key);
       }
 
-      return true;
-    });
+      this.stuff.every((e, key) => {
+        if(e.stuff._id == id) {
+          flag? method_1(e): method_2(e, key);
+          return false;
+        }
+        return true;
+      });
+    };
 
+    action == "add"? forEveryEvent(true): forEveryEvent(false);
     this.changeDetRef.detectChanges();
   }
 
+  //  <--- tworzenie linku dla naszego koszyka ---->
   shareBasket()
   {
     this.httpClient.post(data.url+"stuff/basket", this.stuff, {withCredentials: true, headers: {'Content-Type':'application/json'}})
@@ -138,6 +147,7 @@ export class BasketComponent implements OnInit, OnDestroy
     });
   }
 
+  //  <--- czyszczenie koszyk ---->
   clearBasket()
   {
     this.stuff = [];

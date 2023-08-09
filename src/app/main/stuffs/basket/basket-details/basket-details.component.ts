@@ -29,28 +29,30 @@ export class BasketDetailsComponent implements OnInit, AfterViewInit
     var canvas: any = document.getElementById("canvas");
     var ctx = canvas.getContext("2d");
 
-    //canvas dimensions
+    //wymiary elementu canvas
     var W = window.innerWidth;
     var H = window.innerHeight;
 
     canvas.width = W;
     canvas.height = H;
 
-    //snowflake particles
-    var mp = 100; //max particles
+    //płatki
+    var mp = 100; //maksymalna ilość cząstek
     var particles = [];
     for (var i = 0; i < mp; i++) {
         particles.push({
-            x: Math.random() * W, //x-coordinate
-            y: Math.random() * H, //y-coordinate
-            r: Math.random() * 15 + 1, //radius
-            d: Math.random() * mp, //density
+            x: Math.random() * W,
+            y: Math.random() * H,
+
+            r: Math.random() * 15 + 1, //promień
+            d: Math.random() * mp, //gęstość
+
             color: "#4387ec",
             tilt: Math.floor(Math.random() * 5) - 5
         });
     }
 
-    //Lets draw the flakes
+    //rysowanie płątków
     function draw() {
         ctx.clearRect(0, 0, W, H);
 

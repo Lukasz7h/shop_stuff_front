@@ -17,33 +17,36 @@ export class LogComponent implements AfterViewInit
 
   canSend(loginForm: NgForm)
   {
-    const result = this.logService.validation(loginForm);
     this.logService.sendLogForm(loginForm.value);
   }
 
   ngAfterViewInit(): void {
 
     //  <--- login ---->
-    document.querySelector(".login").addEventListener("keyup", function () {
-      if (this.value.length >= 5 && this.value.length <= 18) {
-        document.querySelector(".icon-repeat-lock").classList.add("next");
-      } else {
+    document.querySelector(".login")
+    .addEventListener("keyup", function () {
+
+      this.value.length >= 5 && this.value.length <= 18?
+        document.querySelector(".icon-repeat-lock").classList.add("next"):
         document.querySelector(".icon-repeat-lock").classList.remove("next");
-      }
+
     });
 
-    document.querySelector(".next-button.login").addEventListener("click", function () {
+    document.querySelector(".next-button.login")
+    .addEventListener("click", function () {
+
       document.querySelector(".login-section").classList.add("fold-up");
       document.querySelector(".password-section").classList.remove("folded");
+
     });
     
-    //  <--- password ---->
-    document.querySelector(".password").addEventListener("keyup", function () {
-      if (this.value.length >= 7 && this.value.length <= 24) {
-        document.querySelector(".icon-lock").classList.add("next");
-      } else {
+    //  <--- hasło ---->
+    document.querySelector(".password")
+    .addEventListener("keyup", function () {
+
+      this.value.length >= 7 && this.value.length <= 24?
+        document.querySelector(".icon-lock").classList.add("next"):
         document.querySelector(".icon-lock").classList.remove("next");
-      }
     });
   }
 
@@ -61,8 +64,6 @@ export class LogComponent implements AfterViewInit
   resetPass()
   {
     this.httpClient.post(data.url+"account/reset_password", JSON.stringify({email: this.email.nativeElement.value}), { headers: {"Content-Type": "application/json"}})
-    .subscribe((e) => {
-
-    });
+    .subscribe((e) => {});
   }
 }

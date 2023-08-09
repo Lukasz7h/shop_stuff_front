@@ -18,12 +18,12 @@ export class AddStuffComponent
   fileStuff: File;
 
   @ViewChild("notice")
-  noticeElement: ElementRef | undefined;
+  private noticeElement: ElementRef | undefined;
 
-  filesStuff: File[] = [];
-  filesOfNutrition: File[] = [];
+  protected filesStuff: File[] = [];
+  protected filesOfNutrition: File[] = [];
 
-  stores: string[] = ["Biedronka", "Lidl", "Carrefour", "Dino", "Kaufland", "Auchan", "Stokrotka", "Żabka", "Netto", "Aldi", "Lewiatan", "Intermarche", "Groszek", "ABC", "Delikatesy Centrum", "E.Leclerc"]
+  protected stores: string[] = ["Biedronka", "Lidl", "Carrefour", "Dino", "Kaufland", "Auchan", "Stokrotka", "Żabka", "Netto", "Aldi", "Lewiatan", "Intermarche", "Groszek", "ABC", "Delikatesy Centrum", "E.Leclerc"]
 
   send(stuffForm: NgForm)
   {

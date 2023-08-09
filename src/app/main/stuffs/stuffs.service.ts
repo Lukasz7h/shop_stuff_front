@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class StuffsService {
+interface StuffType{
+    _id: string;
+    store: string;
+    
+    values: any;
 
-  constructor() { }
-
-  originStuffs: {
     name: string,
     price: number,
 
@@ -17,23 +15,23 @@ export class StuffsService {
     protein: number,
     fiber: number,
 
-    kcal: number,
-    unit: string
-  }[] = [];
+    kcal?: number,
+    unit?: string
+};
 
-  stuffs: any[];
+@Injectable({
+  providedIn: 'root'
+})
+export class StuffsService {
 
-  filterObj: {
-    name: string,
-    price: number,
+  constructor(){}
 
-    protein: number,
-    carb: number,
+  originStuffs: StuffType[] = [];
 
-    fat: number,
-    fiber: number
-  } | any = {}
+  stuffs: StuffType[];
+  filterObj: StuffType | any = {}
 
+  //  <--- filtrowanie tablicy produktów na podstawie wprowadzonych danych ---->
   filter(e: Event)
   {
     const value = isNaN(e.target['value'])? e.target['value']: Number(e.target['value']);
@@ -59,36 +57,48 @@ export class StuffsService {
     });
 
     if(!e.target['parentElement'].classList.contains("active")) e.target['parentElement'].classList.add("active");
-    this.stuffs = this.originStuffs.filter((e: any) => {
-    
+    this.stuffs = this.originStuffs.filter(checkPropertiesOfStuff);
+
+    // filtrujemy nasze produkty
+    function checkPropertiesOfStuff(e: any)
+    {
       let flag: boolean = true;
 
-      if(!this.filterObj.name || (this.filterObj.name && e.name.toLowerCase().includes(`${this.filterObj.name.toLowerCase()}`)))
-      {
-        if(this.filterObj.store && (!e.store.includes(`${this.filterObj.store}`))) flag = false;
+      const stuffProperties = {
+              //Filter nie posiadaja nazwy || (posiada nazwe && aktualnie sprawdzany obj posiada tą samą nazwe)
+        isName: !this.filterObj.name || (this.filterObj.name && e.name.toLowerCase().includes(`${this.filterObj.name.toLowerCase()}`)),
 
-        if(!this.filterObj.price || (this.filterObj.price && e.price < this.filterObj.price))
+               //Filter posiada nazwe sklepu && wartość aktalnie sprawdzanego obj się z tą nazwą nie zgadza
+        isStore: this.filterObj.store && (!e.store.includes(`${this.filterObj.store}`)),
+
+               //Filter nie posiada ustalonej ceny || (posiada cene && cena aktualnego obj jest mniejsza niż ta ustalona)
+        isPrice: !this.filterObj.price || (this.filterObj.price && e.price < this.filterObj.price),
+
+               //Filter posiada aktualnie sprawdzaną właściwość && wartość aktualnie sprawdzanego obj jest mniejsza niż ta z filtra
+        isValue: (i: number) => this.filterObj[arr[i]] && e.values[`${arr[i]}`].value < this.filterObj[arr[i]]
+      };
+
+
+      if(stuffProperties.isName)
+      {
+        if(stuffProperties.isStore) flag = false;
+
+        if(stuffProperties.isPrice && flag)
         {
           for(let i=0; i<arr.length; i++)
           {
-            if(this.filterObj[arr[i]] && e.values[`${arr[i]}`].value < this.filterObj[arr[i]]) flag = false;
-          }
+            if(stuffProperties.isValue(i)) flag = false;
+          };
         }
-        else if(this.filterObj.price && e.price > this.filterObj.price)
+        else
         {
           flag = false;
-        }
-        
-      }
-      else
-      {
-        flag = false;
+        };
+
+        if(flag) return e;
       };
 
-      if(flag) return e;
-    });
-
-
+    }
   }
 
 }

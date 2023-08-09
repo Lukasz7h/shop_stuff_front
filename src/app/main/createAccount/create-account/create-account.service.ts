@@ -33,6 +33,7 @@ export class CreateAccountService
     if(registerForm.controls['email'].validator(registerForm.get("email")) != null) addError("Podano niepoprawny email.");
   }
 
+  //  <--- wysyłanie formularza z rejestracją ---->
   sendRegisterForm(registerForm: FormGroup)
   {
     const login = registerForm.get("login").value;

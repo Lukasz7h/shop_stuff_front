@@ -10,10 +10,7 @@ export class DetailsService {
     this.thatMonth = new Date().getMonth() + 1;
   }
 
-  thatYear: number;
-  thatMonth: number;
-
-  lineStatic: any = {
+  private lineStatic: any = {
     
     label: null,
     fill: false,
@@ -48,22 +45,7 @@ export class DetailsService {
     },
   };
 
-  lineChartData: any;
-  lineChartLabels: Array<any> = [];
-
-  year: string[] = ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'];
-  years: {} = {};
-
-  setYear(price: {price: string, date: string})
-  {
-    const month = Number(price.date.split("-")[1]);
-    const year = Number(price.date.split("-")[2]);
-
-    if(!this.years[year]) this.years[year] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    if(Number(price.date.split("-")[2]) == this.thatYear ) this.years[year][month-1] += Number(price.price);
-  }
-
-  months: {} = {
+  private dataMonths = {
     1: {days: [], values: []},
     2: {days: [], values: []},
     3: {days: [], values: []},
@@ -76,11 +58,37 @@ export class DetailsService {
     10: {days: [], values: []},
     11: {days: [], values: []},
     12: {days: [], values: []}
-  };
+  }
 
-  label: string;
-  labelPeriod: string;
+  private thatYear: number;
+  private thatMonth: number;
 
+  public storyLabel = [];
+  public storesHistoryYear = {};
+  public storesHistoryMonth = {};
+
+  public lineChartData: any;
+  public lineChartLabels: Array<any> = [];
+
+  private year: string[] = ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'];
+  private years: {} = {};
+
+  private months: {} = Object.assign({}, this.dataMonths);
+  private currentPeriod: string;
+
+  private label: string;
+  private labelPeriod: string;
+
+  setYear(price: {price: string, date: string}): void
+  {
+    const month = Number(price.date.split("-")[1]);
+    const year = Number(price.date.split("-")[2]);
+
+    if(!this.years[year]) this.years[year] = new Array(12).fill(0);
+    if(Number(price.date.split("-")[2]) == this.thatYear ) this.years[year][month-1] += Number(price.price);
+  }
+
+  //  <--- ustawianie wartości dla właściwości zwartych w wykresie ---->
   setChart(stuff, stuffHistory): void
   {
     const name: string = stuff.name || stuff.name;
@@ -90,21 +98,7 @@ export class DetailsService {
     this.labelPeriod = "Miesiąc: " + this.year[this.thatMonth - 1].toLowerCase();
 
     this.lineStatic.label = this.label + this.labelPeriod;
-
-    this.months = {
-      1: {days: [], values: []},
-      2: {days: [], values: []},
-      3: {days: [], values: []},
-      4: {days: [], values: []},
-      5: {days: [], values: []},
-      6: {days: [], values: []},
-      7: {days: [], values: []},
-      8: {days: [], values: []},
-      9: {days: [], values: []},
-      10: {days: [], values: []},
-      11: {days: [], values: []},
-      12: {days: [], values: []}
-    };
+    this.months = Object.assign({}, this.dataMonths);
 
     for(let key in this.months)
     {
@@ -139,16 +133,24 @@ export class DetailsService {
     this.lineChartData = [this.lineStatic];
   }
 
-  private currentPeriod: string;
+  //  <--- zwracamy odpowiednie informacje o wykresie ---->
   getChart(period: string): any
   {
     this.currentPeriod = period;
-    period == "Month"? this.lineStatic.label = this.label + this.labelPeriod: this.lineStatic.label = this.label + "Rok: " + this.thatYear;
-
     let that;
     
-    period == "Month"? [that = this.months[this.thatMonth].values, this.lineChartLabels = this.months[this.thatMonth].days, this.labelPeriod = "Miesiąc: " + this.year[this.thatMonth - 1].toLowerCase()]:
-    [that = this.years[this.thatYear], this.lineChartLabels = this.year];
+    period == "Month"?
+    [
+      this.lineStatic.label = this.label + this.labelPeriod,
+      that = this.months[this.thatMonth].values,
+      this.lineChartLabels = this.months[this.thatMonth].days,
+      this.labelPeriod = "Miesiąc: " + this.year[this.thatMonth - 1].toLowerCase()
+    ]:
+    [
+      this.lineStatic.label = this.label + this.labelPeriod,
+      that = this.years[this.thatYear],
+      this.lineChartLabels = this.year
+    ];
 
     this.lineStatic.data = that;
     this.lineStatic.label = this.label + this.labelPeriod;
@@ -156,10 +158,7 @@ export class DetailsService {
     return [this.lineStatic];
   }
 
-  public storyLabel = [];
-  public storesHistoryYear = {};
-  public storesHistoryMonth = {};
-
+  //  <--- wysyłanie formularza z logowaniem ---->
   setStoresLabel(history: []): void
   {
     const that = this;
@@ -205,51 +204,46 @@ export class DetailsService {
 
   }
 
+  //  <--- porównanie cen względem innych sklepów ---->
   compareStoresPrice(period: string): any
   {
     this.currentPeriod = period;
     let that;
 
     period == 'Month'?
-    this.thatMonth = Number(Object.keys(this.storesHistoryMonth)[Object.keys(this.storesHistoryMonth).length - 1]):
-    this.thatYear = Number(Object.keys(this.storesHistoryYear)[Object.keys(this.storesHistoryYear).length - 1]);
-
-    period == 'Month'?
-    [that = "Miesiąc:", this.lineStatic.data = this.storesHistoryMonth[this.thatMonth], this.lineStatic.label = "Średnia cena produktu w sklepach. "+ that+ ` ${this.year[this.thatMonth - 1]}`]:
-    [that = "roku", this.lineStatic.data = this.storesHistoryYear[this.thatYear], this.lineStatic.label = "Średnia cena produktu w sklepach. W "+ that+ ` ${this.thatYear}` ];
+    [
+      this.thatMonth = Number(Object.keys(this.storesHistoryMonth)[Object.keys(this.storesHistoryMonth).length - 1]),
+      that = "Miesiąc:", this.lineStatic.data = this.storesHistoryMonth[this.thatMonth],
+      this.lineStatic.label = "Średnia cena produktu w sklepach. "+ that+ ` ${this.year[this.thatMonth - 1]}`
+    ]:
+    [
+      this.thatYear = Number(Object.keys(this.storesHistoryYear)[Object.keys(this.storesHistoryYear).length - 1]),
+      that = "roku", this.lineStatic.data = this.storesHistoryYear[this.thatYear],
+      this.lineStatic.label = "Średnia cena produktu w sklepach. W "+ that+ ` ${this.thatYear}`
+    ];
 
     this.lineChartLabels = this.storyLabel;
-
     return [this.lineStatic];
   }
 
-  actionMonth(sentence: string, type: string): any
+  //  <--- zmiana danych wykresu  ---->
+  actionPeriod(sentence: string, type: string): any
   {
     let data;
     let back;
 
-    this.currentPeriod == "Year"?
-    (() => {
-      back = this.thatYear;
-      this.thatYear = sentence == 'back'? this.thatYear - 1: this.thatYear + 1;
+    function setData(period, labels, particularData)
+    {
+      back = period;
+      period = sentence == 'back'? period - 1: period + 1;
 
       type == "bar"?
-      data = this[`storesHistory${this.currentPeriod}`][this.thatYear]: [this.lineChartLabels = this.year, data = this.years[this.thatYear]];
-    })():
-    (() => {
-      back = this.thatMonth;
-      this.thatMonth = sentence == 'back'? this.thatMonth - 1: this.thatMonth + 1;
+      data = this[`storesHistory${this.currentPeriod}`][period]: [this.lineChartLabels = labels, data = particularData];
+    };
 
-      try
-      {
-        type == "bar"?
-        data = this[`storesHistory${this.currentPeriod}`][this.thatMonth]: [this.lineChartLabels = this.months[this.thatMonth].days, data = this.months[this.thatMonth].values];
-      }
-      catch(err)
-      {
-        this.currentPeriod == "Year"? this.thatYear = back: this.thatMonth = back;
-      }
-    })();
+    this.currentPeriod == "Year"?
+    setData.call(this, this.thatYear, this.year, this.years[this.thatYear]):
+    setData.call(this, this.thatMonth, this.months[this.thatMonth].days, this.months[this.thatMonth].values);
 
     if(!data)
     {
