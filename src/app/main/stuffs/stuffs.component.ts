@@ -47,7 +47,7 @@ export class StuffsComponent implements OnInit
     if(this.stuffService.stuffs) this.isset = true;
 
     this.httpClient.get(data.url+"stuff/")
-    .subscribe(this.setList)
+    .subscribe(this.setList.bind(this))
 
     const basket = localStorage.getItem("basketLinks");
     if(basket) this.basketLinks = JSON.parse(basket);
