@@ -46,7 +46,7 @@
     <div class="stuff" *ngFor="let e of stuffService.stuffs; let i=index;">
         <div class="container" [routerLink]="['/stuffs/detail', e._id]">
     
-            <span class="store"><img #logo [src]="getLogo(e.store, i)"></span>
+            <span class="store"><img #logo [src]="logos[e.store]"></span>
 
             <p *ngIf="e.name">nazwa: {{e.name}}</p>
             <p *ngIf="e.name">cena: {{e.price}}</p>
