@@ -1,3 +1,3 @@
 export const data = {
-    url: "https://shopback-production-ee94.up.railway.app/"
+    url: "https://shopback-production-4df0.up.railway.app/"
 }
