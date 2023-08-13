@@ -30,6 +30,7 @@
     "ng-chartjs": "^0.2.7",
     "ngx-clipboard": "^16.0.0",
     "ngx-dropzone-v14": "^4.5.0",
+    "ngx-socket-io": "^4.5.1",
     "pixi.js": "^7.2.4",
     "rxjs": "~7.8.0",
     "simplex-noise": "^4.0.1",

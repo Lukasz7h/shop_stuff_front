@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { data } from 'src/app/api_data/api_data';
 import { StuffsService } from './stuffs.service';
 
 import { ClipboardService } from 'ngx-clipboard';
-import { logos } from './images_path';
 
 import { Subject } from 'rxjs';
+import { Socket } from 'ngx-socket-io';
 
 @Component({
   selector: 'app-stuffs',
@@ -23,7 +23,7 @@ export class StuffsComponent implements OnInit
   basketLinks: string[] = [];
 
   nameInput = new Subject();
-  lastNumber: number;
+  lastNumber: number = 1;
 
   logos = {
     Abc: 'assets/images/abc.png',
@@ -50,20 +50,27 @@ export class StuffsComponent implements OnInit
     private httpClient: HttpClient,
     public stuffService: StuffsService,
 
-    private clipboardService: ClipboardService
+    private clipboardService: ClipboardService,
+    private socket: Socket
   ){}
 
   isset: boolean = false;
 
   ngOnInit(): void
   {
-    if(this.stuffService.stuffs) this.isset = true;
+    this.socket.emit("message", {number: this.lastNumber});
+    this.socket.on("stream", this.handleStuff.bind(this));
 
-    this.httpClient.get(data.url+"stuff/")
-    .subscribe(this.setList.bind(this))
+    if(this.stuffService.stuffs) this.isset = true;
 
     const basket = localStorage.getItem("basketLinks");
     if(basket) this.basketLinks = JSON.parse(basket);
+  }
+
+  //  <--- metoda do której przychodzą produkty z websocketa ---->
+  handleStuff(e)
+  {
+    this.setList(e);
   }
 
   //  <--- pobrane prdukty są dodawane do listy która jest wyświetlana ---->
