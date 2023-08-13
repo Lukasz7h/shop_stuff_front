@@ -13,8 +13,6 @@ import { BasketComponent } from './basket/basket.component';
 import { BasketDetailsComponent } from './basket/basket-details/basket-details.component'
 import { SocketIoModule } from 'ngx-socket-io';
 
-import { data } from 'src/app/api_data/api_data';
-
 @NgModule({
   declarations: [
     StuffsComponent,
@@ -27,7 +25,7 @@ import { data } from 'src/app/api_data/api_data';
     RouterModule,
     NgChartjsModule,
     MatIconModule,
-    SocketIoModule.forRoot({url: data.socket, options: {transports: ["websocket"], autoConnect: true}})
+    SocketIoModule.forRoot({url: "https://shopback-production-1cf1.up.railway.app/", options: { transports: ["websocket"], autoConnect: true}})
   ]
 })
 export class StuffsModule { }
