@@ -52,7 +52,7 @@ export class DetailsComponent implements OnInit
       e.json()
       .then((result) => {
 
-        this.stuff = result.stuff;
+        this.stuff = result;
         this.getHistory()
       })
     });
