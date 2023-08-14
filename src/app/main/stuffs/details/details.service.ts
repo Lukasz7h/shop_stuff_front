@@ -232,29 +232,28 @@ export class DetailsService {
     let data;
     let back;
 
+    let time: number;
+
     function setData(period, labels, particularData)
     {
       back = period;
       period = sentence == 'back'? period - 1: period + 1;
 
+      time = period;
+
       if(!this.currentPeriod) this.currentPeriod = "Month";
 
       const newData = this.currentPeriod == "Month"?
-      this.months[period].values:
-      this.years[period]
+      {value: this.months[period].values, label: this.months[period].days}:
+      {value: this.years[period], label: this.year};
 
       type == "bar"?
-      data = this[`storesHistory${this.currentPeriod}`][period]: [this.lineChartLabels = labels, data = newData];
+      data = this[`storesHistory${this.currentPeriod}`][period]: [this.lineChartLabels = newData.label, data = newData.value];
     };
 
-    console.log(this.thatYear);
-    console.log(this.thatMonth);
-
     this.currentPeriod == "Year"?
-    setData.call(this, this.thatYear, this.year):
-    setData.call(this, this.thatMonth, this.months[this.thatMonth].days);
-
-    console.log(data);
+    setData.call(this, this.thatYear):
+    setData.call(this, this.thatMonth);
 
     if(!data)
     {
@@ -264,7 +263,7 @@ export class DetailsService {
 
     this.lineStatic.data = data;
 
-    this.currentPeriod == "Year"? this.labelPeriod = "Rok: " + this.year[this.thatYear]: this.labelPeriod = "Miesiąc: " + this.year[this.thatMonth - 1].toLowerCase();
+    this.currentPeriod == "Year"? this.labelPeriod = "Rok: " + this.year[time - 1]: this.labelPeriod = "Miesiąc: " + this.year[time - 1].toLowerCase();
     this.lineStatic.label = this.label + this.labelPeriod;
 
     return [this.lineStatic];
