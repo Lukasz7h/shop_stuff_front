@@ -237,11 +237,7 @@ export class DetailsService {
       back = period;
       period = sentence == 'back'? period - 1: period + 1;
 
-      console.log(this.currentPeriod)
-
-      console.log(this[`storesHistory${this.currentPeriod}`][period]);
-      console.log(this[`storesHistory${this.currentPeriod}`]);
-      console.log(period);
+      if(!this.currentPeriod) this.currentPeriod = "Month";
 
       type == "bar"?
       data = this[`storesHistory${this.currentPeriod}`][period]: [this.lineChartLabels = labels, data = particularData];
