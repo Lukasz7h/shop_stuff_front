@@ -62,6 +62,7 @@ export class DetailsComponent implements OnInit
   //  <--- użytkownik zmienił okres wyświelany na wykresie ---->
   action(action: string): void
   {
+    console.log(this.detailsService.actionPeriod(action, this.lineChartType))
     this.lineChartData = this.detailsService.actionPeriod(action, this.lineChartType);
     this.lineChartLabels = this.detailsService.lineChartLabels;
   }
