@@ -25,6 +25,9 @@ export class StuffsComponent implements OnInit
   nameInput = new Subject();
   lastNumber: number = 1;
 
+  isset: boolean = false;
+  stuffSocketList: any[] = [];
+
   logos = {
     Abc: 'assets/images/abc.png',
     Aldi: 'assets/images/aldi.svg.png',
@@ -54,7 +57,7 @@ export class StuffsComponent implements OnInit
     private socket: Socket
   ){}
 
-  isset: boolean = false;
+  
 
   ngOnInit(): void
   {
@@ -68,22 +71,19 @@ export class StuffsComponent implements OnInit
   }
 
   //  <--- metoda do której przychodzą produkty z websocketa ---->
-  handleStuff(e)
+  handleStuff(e: any)
   {
     this.setList(e);
   }
 
   //  <--- pobrane prdukty są dodawane do listy która jest wyświetlana ---->
-  setList(e: []): void
+  setList(e: any): void
   {
     this.isset = true;
-      
-    e.forEach((element: any) => {
-      if( !!!this.storeList.find((x => x == element.store)) ) this.storeList.push(element.store);
-    });
+    if( !!!this.storeList.find((x => x == e.store)) ) this.storeList.push(e.store);
 
-    this.stuffService.originStuffs = e;
-    this.stuffService.stuffs = e;
+    this.stuffService.originStuffs.push(e);
+    this.stuffService.stuffs.push(e);
   }
 
   //  <--- filtry zostają wyczyszczone ---->
