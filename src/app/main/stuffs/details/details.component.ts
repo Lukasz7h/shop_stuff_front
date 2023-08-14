@@ -52,6 +52,7 @@ export class DetailsComponent implements OnInit
       e.json()
       .then((result) => {
 
+        console.log(result);
         this.stuff = result.stuff;
 
         const name = this.stuff.name;
