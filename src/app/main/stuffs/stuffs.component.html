@@ -1,4 +1,4 @@
-<div *ngIf="stuffService.stuffs.length < 36" id="wait">
+<div *ngIf="end" id="wait">
     <div class="lds-roller">
         <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
     </div>
@@ -42,7 +42,7 @@
     </div>
 </div>
 
-<div id="content" *ngIf="stuffService.stuffs.length % 36 == 0">
+<div id="content" *ngIf="end">
     <div class="stuff" *ngFor="let e of stuffService.stuffs; let i=index;">
         <div class="container" [routerLink]="['/stuffs/detail', e._id]">
     

@@ -25,6 +25,8 @@ export class StuffsComponent implements OnInit
   nameInput = new Subject();
   lastNumber: number = 1;
 
+  end: boolean = false;
+
   stuffSocketList: any[] = [];
 
   logos = {
@@ -68,6 +70,15 @@ export class StuffsComponent implements OnInit
   //  <--- metoda do której przychodzą produkty z websocketa ---->
   handleStuff(e: any)
   {
+    if(e.end)
+    {
+      this.end = true;
+
+      setTimeout(() => {
+        this.end = false;
+      }, 50);
+      return;
+    }
     this.setList(e);
   }
 
@@ -75,7 +86,6 @@ export class StuffsComponent implements OnInit
   setList(e: any): void
   {
     if( !!!this.storeList.find((x => x == e.store)) ) this.storeList.push(e.store);
-    console.log(e);
 
     this.stuffService.originStuffs.push(e);
     this.stuffService.stuffs.push(e);
