@@ -52,20 +52,8 @@ export class DetailsComponent implements OnInit
       e.json()
       .then((result) => {
 
-        console.log(result);
         this.stuff = result.stuff;
-
-        const name = this.stuff.name;
-        const store = this.stuff.store;
-
-        this.stuffHistory = result.history.filter((e) => (e.name == name && e.store == store) )[0];
-        this.history = result.history;
-
-        this.detailsService.setStoresLabel(result.history);
-        this.detailsService.setChart(this.stuff, this.stuffHistory);
-
-        this.lineChartData = this.detailsService.lineChartData;
-        this.lineChartLabels = this.detailsService.lineChartLabels;
+        this.getHistory()
       })
     });
 
