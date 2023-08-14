@@ -234,6 +234,7 @@ export class DetailsService {
 
     function setData(period, labels, particularData)
     {
+      console.log(period);
       back = period;
       period = sentence == 'back'? period - 1: period + 1;
 
