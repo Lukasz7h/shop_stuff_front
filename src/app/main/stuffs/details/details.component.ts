@@ -47,8 +47,6 @@ export class DetailsComponent implements OnInit
   {
     const id = this.router.snapshot.paramMap.get("id");
 
-    this.service.originStuffs.length > 0?
-    [this.stuff = this.service.originStuffs.filter((e: any) => e._id == id)[0], this.getHistory()]:
     await fetch(data.url+"stuff/"+id)
     .then((e) => {
       e.json()
