@@ -239,16 +239,20 @@ export class DetailsService {
 
       if(!this.currentPeriod) this.currentPeriod = "Month";
 
+      const newData = this.currentPeriod == "Month"?
+      this.months[period].values:
+      this.years[period]
+
       type == "bar"?
-      data = this[`storesHistory${this.currentPeriod}`][period]: [this.lineChartLabels = labels, data = particularData];
+      data = this[`storesHistory${this.currentPeriod}`][period]: [this.lineChartLabels = labels, data = newData];
     };
 
     console.log(this.thatYear);
     console.log(this.thatMonth);
 
     this.currentPeriod == "Year"?
-    setData.call(this, this.thatYear, this.year, this.years[this.thatYear]):
-    setData.call(this, this.thatMonth, this.months[this.thatMonth].days, this.months[this.thatMonth].values);
+    setData.call(this, this.thatYear, this.year):
+    setData.call(this, this.thatMonth, this.months[this.thatMonth].days);
 
     console.log(data);
 
