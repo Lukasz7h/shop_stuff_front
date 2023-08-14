@@ -25,7 +25,6 @@ export class StuffsComponent implements OnInit
   nameInput = new Subject();
   lastNumber: number = 1;
 
-  isset: boolean = false;
   stuffSocketList: any[] = [];
 
   logos = {
@@ -57,14 +56,10 @@ export class StuffsComponent implements OnInit
     private socket: Socket
   ){}
 
-  
-
   ngOnInit(): void
   {
     this.socket.emit("message", {number: this.lastNumber});
     this.socket.on("stream", this.handleStuff.bind(this));
-
-    if(this.stuffService.stuffs) this.isset = true;
 
     const basket = localStorage.getItem("basketLinks");
     if(basket) this.basketLinks = JSON.parse(basket);
@@ -79,8 +74,8 @@ export class StuffsComponent implements OnInit
   //  <--- pobrane prdukty są dodawane do listy która jest wyświetlana ---->
   setList(e: any): void
   {
-    this.isset = true;
     if( !!!this.storeList.find((x => x == e.store)) ) this.storeList.push(e.store);
+    console.log(e);
 
     this.stuffService.originStuffs.push(e);
     this.stuffService.stuffs.push(e);
