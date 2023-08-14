@@ -42,7 +42,7 @@
     </div>
 </div>
 
-<div id="content" *ngIf="end">
+<div id="content" *ngIf="isset">
     <div class="stuff" *ngFor="let e of stuffService.stuffs; let i=index;">
         <div class="container" [routerLink]="['/stuffs/detail', e._id]">
     

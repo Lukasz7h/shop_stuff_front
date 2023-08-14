@@ -25,9 +25,7 @@ export class StuffsComponent implements OnInit
   nameInput = new Subject();
   lastNumber: number = 1;
 
-  end: boolean = false;
   isset: boolean = false;
-
   stuffSocketList: any[] = [];
 
   logos = {
@@ -73,14 +71,9 @@ export class StuffsComponent implements OnInit
   {
     if(e.end)
     {
-      this.end = true;
       this.isset = true;
-
-      setTimeout(() => {
-        this.end = false;
-      }, 50);
       return;
-    }
+    };
     this.setList(e);
   }
 
@@ -91,8 +84,6 @@ export class StuffsComponent implements OnInit
 
     this.stuffService.originStuffs.push(e);
     this.stuffService.stuffs.push(e);
-
-    console.log(this.stuffService.stuffs)
   }
 
   //  <--- filtry zostają wyczyszczone ---->
