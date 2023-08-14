@@ -239,8 +239,6 @@ export class DetailsService {
 
       if(!this.currentPeriod) this.currentPeriod = "Month";
 
-      console.log(this[`storesHistory${this.currentPeriod}`][period])
-
       type == "bar"?
       data = this[`storesHistory${this.currentPeriod}`][period]: [this.lineChartLabels = labels, data = particularData];
     };
@@ -248,6 +246,8 @@ export class DetailsService {
     this.currentPeriod == "Year"?
     setData.call(this, this.thatYear, this.year, this.years[this.thatYear]):
     setData.call(this, this.thatMonth, this.months[this.thatMonth].days, this.months[this.thatMonth].values);
+
+    console.log(data);
 
     if(!data)
     {
