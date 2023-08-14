@@ -73,7 +73,6 @@ export class StuffsComponent implements OnInit
   //  <--- metoda do której przychodzą produkty z websocketa ---->
   handleStuff(e: any)
   {
-    console.log(e);
     this.setList(e);
   }
 

@@ -28,7 +28,7 @@ export class StuffsService {
 
   originStuffs: StuffType[] = [];
 
-  stuffs: StuffType[];
+  stuffs: StuffType[] = [];
   filterObj: StuffType | any = {}
 
   //  <--- filtrowanie tablicy produktów na podstawie wprowadzonych danych ---->
