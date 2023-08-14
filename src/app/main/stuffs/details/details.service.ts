@@ -243,6 +243,9 @@ export class DetailsService {
       data = this[`storesHistory${this.currentPeriod}`][period]: [this.lineChartLabels = labels, data = particularData];
     };
 
+    console.log(this.thatYear);
+    console.log(this.thatMonth);
+
     this.currentPeriod == "Year"?
     setData.call(this, this.thatYear, this.year, this.years[this.thatYear]):
     setData.call(this, this.thatMonth, this.months[this.thatMonth].days, this.months[this.thatMonth].values);
