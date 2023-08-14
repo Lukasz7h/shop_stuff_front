@@ -234,10 +234,10 @@ export class DetailsService {
 
     function setData(period, labels, particularData)
     {
-      back = period;
       period = sentence == 'back'? period - 1: period + 1;
+      back = period;
 
-      console.log(period);
+      console.log(this[`storesHistory${this.currentPeriod}`][period])
 
       type == "bar"?
       data = this[`storesHistory${this.currentPeriod}`][period]: [this.lineChartLabels = labels, data = particularData];
