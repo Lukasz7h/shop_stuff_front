@@ -26,6 +26,7 @@ export class StuffsComponent implements OnInit
   lastNumber: number = 1;
 
   end: boolean = false;
+  isset: boolean = false;
 
   stuffSocketList: any[] = [];
 
@@ -73,6 +74,7 @@ export class StuffsComponent implements OnInit
     if(e.end)
     {
       this.end = true;
+      this.isset = true;
 
       setTimeout(() => {
         this.end = false;
@@ -89,6 +91,8 @@ export class StuffsComponent implements OnInit
 
     this.stuffService.originStuffs.push(e);
     this.stuffService.stuffs.push(e);
+
+    console.log(this.stuffService.stuffs)
   }
 
   //  <--- filtry zostają wyczyszczone ---->
