@@ -1,9 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
-import { data } from 'src/app/api_data/api_data';
 import { StuffsService } from './stuffs.service';
-
 import { ClipboardService } from 'ngx-clipboard';
 
 import { Subject } from 'rxjs';
@@ -59,6 +57,7 @@ export class StuffsComponent implements OnInit
 
   ngOnInit(): void
   {
+
     this.socket.emit("message", {number: this.lastNumber});
     this.socket.on("stream", this.handleStuff.bind(this));
 
@@ -154,4 +153,5 @@ export class StuffsComponent implements OnInit
   {
     this.stuffService.filter(e);
   }
+
 }

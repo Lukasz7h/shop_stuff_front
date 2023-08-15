@@ -263,7 +263,7 @@ export class DetailsService {
 
     this.lineStatic.data = data;
 
-    this.currentPeriod == "Year"? this.labelPeriod = "Rok: " + this.year[time - 1]: this.labelPeriod = "Miesiąc: " + this.year[time - 1].toLowerCase();
+    this.currentPeriod == "Year"? this.labelPeriod = "Rok: " + this.year[time]: this.labelPeriod = "Miesiąc: " + this.year[time].toLowerCase();
     this.lineStatic.label = this.label + this.labelPeriod;
 
     return [this.lineStatic];
