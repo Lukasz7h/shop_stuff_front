@@ -27,17 +27,25 @@
         <input type="number" name="price" ngModel>
     
         <label>Zdjęcie produktu:</label>
-        <ngx-dropzone [multiple]="false" (change)="onSelect($event, 1)">
+        <ngx-dropzone [multiple]="false" (change)="onSelect($event, fileStuff)">
             <ngx-dropzone-label><mat-icon>add_photo_alternate</mat-icon></ngx-dropzone-label>
-            <ngx-dropzone-preview *ngFor="let f of filesStuff" [removable]="true" (removed)="onRemove(f, 1)">
+            <ngx-dropzone-preview *ngFor="let f of filesStuff" [removable]="true" (removed)="onRemove(f, fileStuff)">
                 <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
             </ngx-dropzone-preview>
         </ngx-dropzone>
     
         <label>Zdjęcie wartości odżywczych:</label>
-        <ngx-dropzone [multiple]="false" (change)="onSelect($event, 2)">
+        <ngx-dropzone [multiple]="false" (change)="onSelect($event, filesOfNutrition)">
             <ngx-dropzone-label><mat-icon>add_photo_alternate</mat-icon></ngx-dropzone-label>
-            <ngx-dropzone-preview *ngFor="let f of filesOfNutrition" [removable]="true" (removed)="onRemove(f, 2)">
+            <ngx-dropzone-preview *ngFor="let f of filesOfNutrition" [removable]="true" (removed)="onRemove(f, filesOfNutrition)">
+                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+            </ngx-dropzone-preview>
+        </ngx-dropzone>
+
+        <label>Zdjęcie składu:</label>
+        <ngx-dropzone [multiple]="false" (change)="onSelect($event, filesOfIngredients)">
+            <ngx-dropzone-label><mat-icon>add_photo_alternate</mat-icon></ngx-dropzone-label>
+            <ngx-dropzone-preview *ngFor="let f of filesOfIngredients" [removable]="true" (removed)="onRemove(f, filesOfIngredients)">
                 <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
             </ngx-dropzone-preview>
         </ngx-dropzone>

@@ -34,7 +34,7 @@ export class AddStuffService {
   }
 
   //  <--- wysyłanie formularza z nowym produktem ---->
-  sendForm({name, price, file, image, store})
+  sendForm({name, price, file, image, fileIngredients, store})
   {
     const form = new FormData();
     form.append("name", name);
@@ -43,6 +43,8 @@ export class AddStuffService {
     form.append("file", file, file.name);
 
     form.append("image", image, image.name);
+    form.append("fileIngredients,", fileIngredients, fileIngredients.name);
+
     form.append("store", store);
 
     this.httpClient.post(data.url+"stuff/add",

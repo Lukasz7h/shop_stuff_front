@@ -17,11 +17,15 @@ export class AddStuffComponent
   fileComposition: File;
   fileStuff: File;
 
+  fileIngredients: File;
+
   @ViewChild("notice")
   private noticeElement: ElementRef | undefined;
 
   protected filesStuff: File[] = [];
   protected filesOfNutrition: File[] = [];
+
+  protected filesOfIngredients: File[] = [];
 
   protected stores: string[] = ["Biedronka", "Lidl", "Carrefour", "Dino", "Kaufland", "Auchan", "Stokrotka", "Żabka", "Netto", "Aldi", "Lewiatan", "Intermarche", "Groszek", "ABC", "Delikatesy Centrum", "E.Leclerc"]
 
@@ -30,6 +34,8 @@ export class AddStuffComponent
     this.fileComposition = this.filesOfNutrition[0];
     this.fileStuff = this.filesStuff[0];
 
+    this.fileIngredients = this.filesOfIngredients[0];
+
     const result = {
       name: this.addStuffService.nameValid(stuffForm.value['name']),
       price: this.addStuffService.priceValid(stuffForm.value['price']),
@@ -37,6 +43,7 @@ export class AddStuffComponent
       fileComposition: this.addStuffService.hasFile(this.fileComposition),
       fileStuff: this.addStuffService.hasFile(this.fileStuff),
 
+      fileIngredients: this.addStuffService.hasFile(this.fileIngredients),
       store: this.addStuffService.nameValid(stuffForm.value['store'])
     };
 
@@ -50,23 +57,20 @@ export class AddStuffComponent
         price: stuffForm.value['price'],
         file: this.fileComposition,
         image: this.fileStuff,
+        fileIngredients: this.fileIngredients,
         store: stuffForm.value['store']
       }
     );
   }
 
-  onSelect(event, id: number): void
+  onSelect(event, arr): void
   {
-    id == 1?
-    this.filesStuff.splice(this.filesStuff.indexOf(event), 1, ...event.addedFiles):
-    this.filesOfNutrition.splice(this.filesOfNutrition.indexOf(event), 1, ...event.addedFiles);
+    arr.splice(arr.indexOf(event), 1, ...event.addedFiles);
   }
 
-  onRemove(event, id: number): void
+  onRemove(event, arr): void
   {
-    id == 1?
-    this.filesStuff.splice(this.filesStuff.indexOf(event), 1):
-    this.filesOfNutrition.splice(this.filesOfNutrition.indexOf(event), 1);
+    arr.splice(arr.indexOf(event), 1);
   }
 
 }
