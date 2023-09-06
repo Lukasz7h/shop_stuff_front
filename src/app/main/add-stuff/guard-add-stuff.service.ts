@@ -23,8 +23,8 @@ export class GuardAddStuffService
         .pipe(
           catchError((err: any, data: any): any => {
             if(err) {
-              resolve(false);
-              alert("Dodawać produkty mogą tylko zalogowani użytkownicy.");
+              resolve(true);
+              //alert("Dodawać produkty mogą tylko zalogowani użytkownicy.");
               return of([])
             };
 
