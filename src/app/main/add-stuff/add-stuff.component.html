@@ -28,7 +28,7 @@
         <label>Zdjęcie produktu:</label>
         <ngx-dropzone [multiple]="false" (change)="onSelect($event, filesStuff)">
             <ngx-dropzone-label><mat-icon>add_photo_alternate</mat-icon></ngx-dropzone-label>
-            <ngx-dropzone-preview *ngFor="let f of filesStuff" [removable]="true" (removed)="onRemove(f, fileStuff)">
+            <ngx-dropzone-preview *ngFor="let f of filesStuff" [removable]="true" (removed)="onRemove(f, filesStuff)">
                 <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
             </ngx-dropzone-preview>
         </ngx-dropzone>
